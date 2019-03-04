@@ -20,7 +20,7 @@ const theme = createMuiTheme({
 
 export const history = createHistory();
 
-const NOTE_API_BASE_URL = 'http://localhost:8082/noteservice/api/v1/note';
+const NOTE_API_BASE_URL = 'http://localhost:8082/note-service/api/v1/note';
 let userid = localStorage.getItem('loggedInUser');
 
 // function to handle routes which are protected,
@@ -85,7 +85,10 @@ class AppRouter extends Component {
             .then(userNotes => this.setState({
                 notes: userNotes,
                 filteredNotes: userNotes,
-            }))
+            })).catch(error => {
+                console.log("Note Service - componentDidMount Exception");
+            })
+
     }
 
     handleAddNote(note) {
@@ -99,7 +102,9 @@ class AppRouter extends Component {
                     notes: currState.notes.concat([note]),
                     filteredNotes: currState.notes.concat(note)
                 }));
-            });
+            }).catch(error => {
+                console.log("Note Service - handleAddNote Exception");
+            })
     }
 
     handleRemoveNote(noteId) {
@@ -112,7 +117,9 @@ class AppRouter extends Component {
                 notes: [...currState.notes.slice(0, noteIndexToRemove), ...currState.notes.slice(noteIndexToRemove + 1)],
                 filteredNotes: [...currState.notes.slice(0, noteIndexToRemove), ...currState.notes.slice(noteIndexToRemove + 1)]
             }));
-        });
+        }).catch(error => {
+            console.log("Note Service - handleRemoveNote Exception");
+        })
     }
 
     // ...updateNote ... is spread operator which eventually passes the value in the object / variable used along with it.
@@ -128,7 +135,9 @@ class AppRouter extends Component {
                     notes: [...currState.notes.slice(0, noteIndexToUpdate), { ...updatedNote }, ...currState.notes.slice(noteIndexToUpdate + 1)],
                     filteredNotes: [...currState.notes.slice(0, noteIndexToUpdate), { ...updatedNote }, ...currState.notes.slice(noteIndexToUpdate + 1)]
                 }));
-            });
+            }).catch(error => {
+                console.log("Note Service - handleUpdateNote Exception");
+            })
     }
 
     // Filter based on Search string

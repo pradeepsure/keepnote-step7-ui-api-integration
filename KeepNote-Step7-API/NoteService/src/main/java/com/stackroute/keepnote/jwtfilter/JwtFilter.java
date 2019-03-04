@@ -35,8 +35,11 @@ public class JwtFilter extends GenericFilterBean {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		final String authHeader = req.getHeader("authorization");
-		if ("OPTIONS".equals(req.getMethod())) {
+		
+		chain.doFilter(req, res);
+		/*
+		 final String authHeader = req.getHeader("authorization");
+		  if ("OPTIONS".equals(req.getMethod())) {
 			res.setStatus(HttpServletResponse.SC_OK);
 			chain.doFilter(req, res);
 		} else {
@@ -47,7 +50,7 @@ public class JwtFilter extends GenericFilterBean {
 			final Claims claims = Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token).getBody();
 			request.setAttribute("claims", claims);
 			chain.doFilter(req, res);
-		}
+		}*/
 
 	}
 }

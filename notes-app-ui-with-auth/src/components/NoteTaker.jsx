@@ -9,6 +9,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
     fab: {
@@ -19,6 +20,10 @@ const styles = theme => ({
         bottom: theme.spacing.unit * 2,
         right: theme.spacing.unit * 3,
     },
+    error: {
+        color: 'red'
+    }
+
 });
 
 class NoteTaker extends Component {
@@ -28,6 +33,7 @@ class NoteTaker extends Component {
             open: false,
             noteTitle: '',
             noteDescription: '',
+            error: ''
         };
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleAddNote = this.handleAddNote.bind(this);
@@ -49,7 +55,7 @@ class NoteTaker extends Component {
     }
 
     handleNoteTitleChange(event) {
-        this.setState({ noteTitle: event.target.value });
+        this.setState({ noteTitle: event.target.value,  error: '' });
     }
 
     handleNoteDescriptionChange(event) {
@@ -57,11 +63,18 @@ class NoteTaker extends Component {
     }
 
     handleAddNote() {
+        if (!this.state.noteTitle) {
+            this.setState({ error: 'Title is needed to add note' });
+            return;
+        }
+
         const newNote = {
             id: Math.random() * 2342342,
             noteTitle: this.state.noteTitle,
             noteDescription: this.state.noteDescription,
+            noteCreatedBy: localStorage.getItem('loggedInUser')
         }
+        this.setState({ error: '' });
         this.props.handleAddNote(newNote);
         this.handleClose();
     }
@@ -108,6 +121,9 @@ class NoteTaker extends Component {
                             fullWidth
                         />
                     </DialogContent>
+                    <Typography className={classes.error} component={'span'} >
+                        {this.state.error}
+                    </Typography>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
                             Cancel

@@ -1,10 +1,15 @@
 package com.stackroute.keepnote.controller;
 
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,9 +36,12 @@ import io.swagger.annotations.ApiOperation;
  * is equivalent to using @Controller and @ResposeBody annotation
  */
 @RestController
-@RequestMapping("/api/v1/note")
-@Api
+@RequestMapping("/note-service/api/v1/note")
+@Api(tags = "NoteController")
+@CrossOrigin(origins = "*")
 public class NoteController {
+
+	private Log log = LogFactory.getLog(getClass());
 
 	/*
 	 * Autowiring should be implemented for the NoteService. (Use
@@ -66,16 +74,22 @@ public class NoteController {
 	@ApiOperation(value = "Create Note")
 	@PostMapping()
 	public ResponseEntity addNote(@RequestBody Note note) {
+		log.info("createNote : STARTED ");
+		HttpHeaders headers = new HttpHeaders();
 
-		ResponseEntity responseEntity = null;
+		try {
+			note.setNoteCreationDate(new Date());
 
-		if (noteService.createNote(note)) {
-			responseEntity = new ResponseEntity(note, HttpStatus.CREATED);
-		} else {
-			responseEntity = new ResponseEntity("Unable to create Note", HttpStatus.CONFLICT);
+			if (noteService.createNote(note)) {
+				log.info("Note created successfully..... ");
+				return new ResponseEntity<>(note, headers, HttpStatus.CREATED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
 		}
-
-		return responseEntity;
+		log.info("createNote : ENDED ");
+		return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
 	}
 
 	/*
@@ -90,30 +104,40 @@ public class NoteController {
 	 */
 	@ApiOperation(value = "Delete Note")
 	@DeleteMapping("/{userId}/{id}")
-	public ResponseEntity deleteNote(@PathVariable String userId, @PathVariable() int id) {
-		ResponseEntity responseEntity = null;
+	public ResponseEntity deleteNote(@PathVariable("userId") String userId, @PathVariable("id") int id) {
+		log.info("deleteNote : STARTED ");
+		HttpHeaders headers = new HttpHeaders();
 
-		if (noteService.deleteNote(userId, id)) {
-			responseEntity = new ResponseEntity<>("Successfully deleted Note", HttpStatus.OK);
-		} else {
-			responseEntity = new ResponseEntity<>("Unable to delete Note", HttpStatus.NOT_FOUND);
+		try {
+			if (noteService.deleteNote(userId, id)) {
+				return new ResponseEntity<>(headers, HttpStatus.OK);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 		}
-		return responseEntity;
+		log.info("deleteNote : ENDED ");
+		return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 	}
 
 	@ApiOperation(value = "Delete All Note for given user")
 	@DeleteMapping("/{userId}")
 	public ResponseEntity deleteAllNotes(@PathVariable() String userId) {
-
-		ResponseEntity<?> responseEntity = null;
+		log.info("deleteAllNotes : STARTED ");
+		HttpHeaders headers = new HttpHeaders();
 
 		try {
-			noteService.deleteAllNotes(userId);
-			responseEntity = new ResponseEntity<>("Successfully deleted all notes for user: " + userId, HttpStatus.OK);
-		} catch (NoteNotFoundExeption exception) {
-			responseEntity = new ResponseEntity<>("Unable to delete all notes", HttpStatus.NOT_FOUND);
+			if (noteService.deleteAllNotes(userId)) {
+				return new ResponseEntity<>(headers, HttpStatus.OK);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 		}
-		return responseEntity;
+		log.info("deleteAllNotes : ENDED ");
+		return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 	}
 
 	/*
@@ -130,17 +154,22 @@ public class NoteController {
 	@ApiOperation(value = "Update Note")
 	@PutMapping("/{userId}/{id}")
 	public ResponseEntity updateNote(@PathVariable() String userId, @PathVariable() int id, @RequestBody Note note) {
+		log.info("updateNote : STARTED ");
 
-		ResponseEntity responseEntity = null;
-
+		HttpHeaders headers = new HttpHeaders();
+		Note noteUpd = null;
 		try {
-			Note updatedNote = noteService.updateNote(note, id, userId);
-			responseEntity = new ResponseEntity<>(updatedNote, HttpStatus.OK);
+			noteUpd = noteService.updateNote(note, id, userId);
+			if (noteUpd != null) {
+				return new ResponseEntity<>(noteUpd, headers, HttpStatus.OK);
+			}
 		} catch (NoteNotFoundExeption e) {
-			responseEntity = new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+			e.printStackTrace();
+			return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 		}
 
-		return responseEntity;
+		log.info("updateNote : ENDED ");
+		return new ResponseEntity<>(noteUpd, headers, HttpStatus.OK);
 	}
 
 	/*
@@ -154,16 +183,16 @@ public class NoteController {
 	@ApiOperation(value = "Get all Note for given User")
 	@GetMapping("/{userId}")
 	public ResponseEntity getAllNoteByUserId(@PathVariable() String userId) {
-		ResponseEntity responseEntity = null;
+		log.info("getAllNoteByUserId : STARTED ");
+		HttpHeaders headers = new HttpHeaders();
+
 		List<Note> userNotes = noteService.getAllNoteByUserId(userId);
 
 		if (userNotes != null) {
-			responseEntity = new ResponseEntity(userNotes, HttpStatus.OK);
+			return new ResponseEntity(userNotes, headers, HttpStatus.OK);
 		} else {
-			responseEntity = new ResponseEntity<>("No Notes found in your list", HttpStatus.OK);
+			return new ResponseEntity<>("No Notes found in your list", HttpStatus.OK);
 		}
-
-		return responseEntity;
 	}
 
 	/*
@@ -179,15 +208,16 @@ public class NoteController {
 	@ApiOperation(value = "Get Note by ID")
 	@GetMapping("{userId}/{noteId}")
 	public ResponseEntity getNoteById(@PathVariable() String userId, @PathVariable() int noteId) {
+		log.info("getNoteByUserId : STARTED");
+		HttpHeaders headers = new HttpHeaders();
 		ResponseEntity responseEntity = null;
 		try {
 			Note note = noteService.getNoteByNoteId(userId, noteId);
 			responseEntity = new ResponseEntity(note, HttpStatus.OK);
 		} catch (NoteNotFoundExeption exception) {
-			System.out.println(111);
+			log.info("NoteNotFoundExeption in getNoteByUserId ");
 			responseEntity = new ResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
 		}
 		return responseEntity;
 	}
-
 }

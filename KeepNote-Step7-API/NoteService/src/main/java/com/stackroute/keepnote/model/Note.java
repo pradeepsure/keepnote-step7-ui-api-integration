@@ -3,6 +3,10 @@ package com.stackroute.keepnote.model;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Note {
 
 	/*
@@ -14,9 +18,10 @@ public class Note {
 	 * but should be always initialized with the system date.
 	 * 
 	 */
-	private int noteId;
+	@Id
+	private int id;
 	private String noteTitle;
-	private String noteContent;
+	private String noteDescription;
 	private String noteStatus;
 	private Date noteCreationDate;
 	private String noteCreatedBy;
@@ -25,12 +30,12 @@ public class Note {
 
 	// getters & setters
 
-	public int getNoteId() {
-		return noteId;
+	public int getId() {
+		return id;
 	}
 
-	public void setNoteId(int noteId) {
-		this.noteId = noteId;
+	public void setId(int noteId) {
+		this.id = noteId;
 	}
 
 	public String getNoteTitle() {
@@ -41,12 +46,12 @@ public class Note {
 		this.noteTitle = noteTitle;
 	}
 
-	public String getNoteContent() {
-		return noteContent;
+	public String getNoteDescription() {
+		return noteDescription;
 	}
 
-	public void setNoteContent(String noteContent) {
-		this.noteContent = noteContent;
+	public void setNoteDescription(String noteDescription) {
+		this.noteDescription = noteDescription;
 	}
 
 	public String getNoteStatus() {
@@ -91,7 +96,7 @@ public class Note {
 
 	@Override
 	public String toString() {
-		return "Note{" + "noteId=" + noteId + ", noteTitle='" + noteTitle + '\'' + ", noteContent='" + noteContent
+		return "Note{" + "id=" + id + ", noteTitle='" + noteTitle + '\'' + ", noteDescription='" + noteDescription
 				+ '\'' + ", noteStatus='" + noteStatus + '\'' + ", noteCreationDate=" + noteCreationDate
 				+ ", noteCreatedBy='" + noteCreatedBy + '\'' + ", category=" + category + ", reminders=" + reminders
 				+ '}';

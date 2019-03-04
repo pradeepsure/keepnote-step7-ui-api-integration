@@ -72,9 +72,9 @@ public class NoteServiceImplTest {
 
         // Note
         note = new Note();
-        note.setNoteId(1);
+        note.setId(1);
         note.setNoteTitle("IPL lists");
-        note.setNoteContent("Mumbai Indians vs RCB match scheduled  for 4 PM");
+        note.setNoteDescription("Mumbai Indians vs RCB match scheduled  for 4 PM");
         note.setNoteStatus("Active");
         note.setCategory(category);
         note.setReminders(reminderList);
@@ -114,7 +114,7 @@ public class NoteServiceImplTest {
     public void deleteNoteSuccess() {
         when(noteRepository.findById(noteUser.getUserId())).thenReturn(options);
         when(noteRepository.save(noteUser)).thenReturn(noteUser);
-        boolean flag = noteServiceImpl.deleteNote("Jhon123", note.getNoteId());
+        boolean flag = noteServiceImpl.deleteNote("Jhon123", note.getId());
         Assert.assertEquals(true, flag);
     }
 
@@ -122,7 +122,7 @@ public class NoteServiceImplTest {
     public void deleteNoteFailure() {
         when(noteRepository.findById(noteUser.getUserId())).thenReturn(null);
         when(noteRepository.save(noteUser)).thenReturn(noteUser);
-        boolean flag = noteServiceImpl.deleteNote("Jhon123", note.getNoteId());
+        boolean flag = noteServiceImpl.deleteNote("Jhon123", note.getId());
         Assert.assertEquals(true, flag);
     }
 
@@ -151,9 +151,9 @@ public class NoteServiceImplTest {
     public void updateNoteSuccess() throws NoteNotFoundExeption {
 
         when(noteRepository.findById("Jhon123")).thenReturn(options);
-        note.setNoteContent("Match cancelled");
+        note.setNoteDescription("Match cancelled");
         noteList.add(note);
-        Note fetchedNote = noteServiceImpl.updateNote(note, note.getNoteId(), note.getNoteCreatedBy());
+        Note fetchedNote = noteServiceImpl.updateNote(note, note.getId(), note.getNoteCreatedBy());
         Assert.assertEquals(note, fetchedNote);
 
 
@@ -163,9 +163,9 @@ public class NoteServiceImplTest {
     public void updateNoteFailure() throws NoteNotFoundExeption {
 
         when(noteRepository.findById("Jhon123")).thenThrow(NoSuchElementException.class);
-        note.setNoteContent("Match cancelled");
+        note.setNoteDescription("Match cancelled");
         noteList.add(note);
-        Note fetchedNote = noteServiceImpl.updateNote(note, note.getNoteId(), note.getNoteCreatedBy());
+        Note fetchedNote = noteServiceImpl.updateNote(note, note.getId(), note.getNoteCreatedBy());
         Assert.assertEquals(note, fetchedNote);
 
 
@@ -174,14 +174,14 @@ public class NoteServiceImplTest {
     @Test
     public void getNoteByNoteIdSuccess() throws NoteNotFoundExeption {
         when(noteRepository.findById("Jhon123")).thenReturn(options);
-        Note fetechedNote = noteServiceImpl.getNoteByNoteId("Jhon123", note.getNoteId());
+        Note fetechedNote = noteServiceImpl.getNoteByNoteId("Jhon123", note.getId());
         Assert.assertEquals(note, fetechedNote);
     }
 
     @Test(expected = NoteNotFoundExeption.class)
     public void getNoteByNoteIdFailure() throws NoteNotFoundExeption {
         when(noteRepository.findById("Jhon123")).thenThrow(NoSuchElementException.class);
-        Note fetechedNote = noteServiceImpl.getNoteByNoteId("Jhon123", note.getNoteId());
+        Note fetechedNote = noteServiceImpl.getNoteByNoteId("Jhon123", note.getId());
         Assert.assertEquals(note, fetechedNote);
     }
 

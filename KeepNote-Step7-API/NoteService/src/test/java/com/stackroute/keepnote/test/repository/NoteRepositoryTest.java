@@ -60,9 +60,9 @@ public class NoteRepositoryTest {
 
         // Note
         note = new Note();
-        note.setNoteId(1);
+        note.setId(1);
         note.setNoteTitle("IPL lists");
-        note.setNoteContent("Mumbai Indians vs RCB match scheduled  for 4 PM");
+        note.setNoteDescription("Mumbai Indians vs RCB match scheduled  for 4 PM");
         note.setNoteStatus("Active");
         note.setCategory(category);
         note.setReminders(reminderList);
@@ -88,7 +88,7 @@ public class NoteRepositoryTest {
     public void createNoteTest() {
         noteRepository.insert(noteUser);
         List<Note> allNotes = noteRepository.findById("Jhon123").get().getNotes();
-        Assert.assertEquals(noteList.get(0).getNoteId(), allNotes.get(0).getNoteId());
+        Assert.assertEquals(noteList.get(0).getId(), allNotes.get(0).getId());
     }
 
 
@@ -96,11 +96,11 @@ public class NoteRepositoryTest {
     public void deleteNoteTest() {
         noteRepository.insert(noteUser);
         List<Note> allNotes = noteRepository.findById("Jhon123").get().getNotes();
-        Assert.assertEquals(noteList.get(0).getNoteId(), allNotes.get(0).getNoteId());
+        Assert.assertEquals(noteList.get(0).getId(), allNotes.get(0).getId());
         Iterator iterator = allNotes.listIterator();
         while (iterator.hasNext()) {
             note = (Note) iterator.next();
-            if (note.getNoteId() == 1)
+            if (note.getId() == 1)
                 iterator.remove();
         }
 
@@ -119,17 +119,17 @@ public class NoteRepositoryTest {
 
         noteRepository.insert(noteUser);
         List<Note> allNotes = noteRepository.findById("Jhon123").get().getNotes();
-        Assert.assertEquals(noteList.get(0).getNoteId(), allNotes.get(0).getNoteId());
+        Assert.assertEquals(noteList.get(0).getId(), allNotes.get(0).getId());
         Iterator iterator = allNotes.listIterator();
         while (iterator.hasNext()) {
             note = (Note) iterator.next();
-            if (note.getNoteId() == 1)
-                note.setNoteContent("Mumbai Indians vs RCB match scheduled  for 4 PM is cancelled");
+            if (note.getId() == 1)
+                note.setNoteDescription("Mumbai Indians vs RCB match scheduled  for 4 PM is cancelled");
         }
         noteUser.setNotes(allNotes);
         noteRepository.save(noteUser);
         allNotes = noteRepository.findById("Jhon123").get().getNotes();
-        Assert.assertEquals("Mumbai Indians vs RCB match scheduled  for 4 PM is cancelled", allNotes.get(0).getNoteContent());
+        Assert.assertEquals("Mumbai Indians vs RCB match scheduled  for 4 PM is cancelled", allNotes.get(0).getNoteDescription());
     }
 
     @Test

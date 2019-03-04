@@ -60,7 +60,7 @@ public class NoteServiceImpl implements NoteService {
 			while (iterator.hasNext()) {
 				note1 = (Note) iterator.next();
 			}
-			note.setNoteId(note1.getNoteId() + counter);
+			note.setId(note1.getId() + counter);
 			notes.add(note);
 			noteUser.setUserId(note.getNoteCreatedBy());
 			noteUser.setNotes(notes);
@@ -68,7 +68,7 @@ public class NoteServiceImpl implements NoteService {
 				noteCreated = true;
 			}
 		} else {
-			note.setNoteId(counter);
+			note.setId(counter);
 			notes.add(note);
 			noteUser.setUserId(note.getNoteCreatedBy());
 			noteUser.setNotes(notes);
@@ -94,7 +94,7 @@ public class NoteServiceImpl implements NoteService {
 			while (iterator.hasNext()) {
 
 				Note note = (Note) iterator.next();
-				if (note.getNoteId() == noteId)
+				if (note.getId() == noteId)
 					iterator.remove();
 
 			}
@@ -153,10 +153,10 @@ public class NoteServiceImpl implements NoteService {
 				while (iterator.hasNext()) {
 
 					fetchedNote = (Note) iterator.next();
-					if (fetchedNote.getNoteId() == noteId) {
-						fetchedNote.setNoteId(fetchedNote.getNoteId());
+					if (fetchedNote.getId() == noteId) {
+						fetchedNote.setId(fetchedNote.getId());
 						fetchedNote.setNoteTitle(note.getNoteTitle());
-						fetchedNote.setNoteContent(note.getNoteContent());
+						fetchedNote.setNoteDescription(note.getNoteDescription());
 						fetchedNote.setNoteCreationDate(fetchedNote.getNoteCreationDate());
 						fetchedNote.setNoteCreatedBy(userId);
 						fetchedNote.setCategory(note.getCategory());
@@ -165,7 +165,7 @@ public class NoteServiceImpl implements NoteService {
 					}
 				}
 
-				if (fetchedNote.getNoteId() != noteId) {
+				if (fetchedNote.getId() != noteId) {
 					throw new NoteNotFoundExeption("Note does not exists");
 				} else {
 					noteUser.setUserId(userId);
@@ -190,6 +190,10 @@ public class NoteServiceImpl implements NoteService {
 	public Note getNoteByNoteId(String userId, int noteId) throws NoteNotFoundExeption {
 
 		Note fetchedNote = new Note();
+		
+		if(!noteRepository.findById(userId).isPresent()){
+			throw new NoteNotFoundExeption("Note does not exists");
+		}
 
 		try {
 			notes = noteRepository.findById(userId).get().getNotes();
@@ -197,11 +201,11 @@ public class NoteServiceImpl implements NoteService {
 			Iterator iterator = notes.listIterator();
 			while (iterator.hasNext()) {
 				fetchedNote = (Note) iterator.next();
-				if (fetchedNote.getNoteId() == noteId)
+				if (fetchedNote.getId() == noteId)
 					break;
 			}
 
-			if (fetchedNote.getNoteId() != noteId) {
+			if (fetchedNote.getId() != noteId) {
 				throw new NoteNotFoundExeption("Note does not exists");
 			}
 
@@ -217,6 +221,9 @@ public class NoteServiceImpl implements NoteService {
 	 */
 	@Override
 	public List<Note> getAllNoteByUserId(String userId) {
+		if(!noteRepository.findById(userId).isPresent()){
+			return null;
+		}
 		List<Note> allNotes = noteRepository.findById(userId).get().getNotes();
 		return allNotes;
 	}

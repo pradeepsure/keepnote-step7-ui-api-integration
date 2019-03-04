@@ -78,9 +78,9 @@ public class NoteControllerTest {
         // Note
 
         note = new Note();
-        note.setNoteId(1);
+        note.setId(1);
         note.setNoteTitle("IPL lists");
-        note.setNoteContent("Mumbai Indians vs RCB match scheduled  for 4 PM");
+        note.setNoteDescription("Mumbai Indians vs RCB match scheduled  for 4 PM");
         note.setNoteStatus("Active");
         note.setCategory(category);
         note.setReminders(reminderList);
@@ -118,7 +118,7 @@ public class NoteControllerTest {
     @Test
     public void deleteNoteSuccess() throws Exception {
 
-        when(noteService.deleteNote("Jhon123", note.getNoteId())).thenReturn(true);
+        when(noteService.deleteNote("Jhon123", note.getId())).thenReturn(true);
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/note/Jhon123/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -129,7 +129,7 @@ public class NoteControllerTest {
     @Test
     public void deleteNoteFailure() throws Exception {
 
-        when(noteService.deleteNote("Jhon123", note.getNoteId())).thenReturn(false);
+        when(noteService.deleteNote("Jhon123", note.getId())).thenReturn(false);
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/note/Jhon123/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
@@ -163,8 +163,8 @@ public class NoteControllerTest {
     @Test
     public void updateNoteSuccess() throws Exception {
 
-        when(noteService.updateNote(any(), eq(note.getNoteId()), eq("Jhon123"))).thenReturn(note);
-        note.setNoteContent("Mumbai Indians vs RCB match scheduled  for 6 PM");
+        when(noteService.updateNote(any(), eq(note.getId()), eq("Jhon123"))).thenReturn(note);
+        note.setNoteDescription("Mumbai Indians vs RCB match scheduled  for 6 PM");
         mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/note/Jhon123/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(note)))
@@ -176,9 +176,9 @@ public class NoteControllerTest {
     @Test
     public void updateNoteFailure() throws Exception {
 
-        when(noteService.updateNote(any(), eq(note.getNoteId()), eq("Jhon123"))).thenThrow(NoteNotFoundExeption.class);
-        note.setNoteContent("Mumbai Indians vs RCB match scheduled  for 6 PM");
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/note/Jhon123/" + note.getNoteId())
+        when(noteService.updateNote(any(), eq(note.getId()), eq("Jhon123"))).thenThrow(NoteNotFoundExeption.class);
+        note.setNoteDescription("Mumbai Indians vs RCB match scheduled  for 6 PM");
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/note/Jhon123/" + note.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(note)))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
