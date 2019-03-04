@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import { Router, Route, Switch, Redirect, Link } from 'react-router-dom';
 import NotesApp from '../components/NotesApp';
 import EditNote from '../components/EditNote';
 import createHistory from 'history/createBrowserHistory';
@@ -7,6 +7,7 @@ import WelcomePage from '../components/WelcomePage';
 import { green, pink } from '@material-ui/core/colors';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Header from '../components/Header';
+import Auth from '../components/Auth';
 
 const theme = createMuiTheme({
     palette: {
@@ -21,7 +22,6 @@ const theme = createMuiTheme({
 export const history = createHistory();
 
 const NOTE_API_BASE_URL = 'http://localhost:8082/note-service/api/v1/note';
-let userid = localStorage.getItem('loggedInUser');
 
 // function to handle routes which are protected,
 // Component is difened to handle such components to be rendered, which takes rest {...rest} of the properties sent and all other props
@@ -59,6 +59,7 @@ class AppRouter extends Component {
             notes: [],
             filteredNotes: []
         };
+        this.handleLoadData = this.handleLoadData.bind(this);
         this.handleAddNote = this.handleAddNote.bind(this);
         this.handleRemoveNote = this.handleRemoveNote.bind(this);
         this.handleUpdateNote = this.handleUpdateNote.bind(this);
@@ -66,8 +67,21 @@ class AppRouter extends Component {
 
     // react life cycle method called once when the page is getting loaded
     componentDidMount() {
+        // Get all the notes      
+        if(localStorage.getItem('isLoggedIn')) {
+            this.handleLoadData();
+        }        
+    }
+
+    handleLoadData() {
+        this.getAllNotes();
+        //this.getAllReminders();
+    }
+
+    getAllNotes() {
         // Get all the notes
-        fetch(`${NOTE_API_BASE_URL}/${userid}`)
+        let loggedInUser = localStorage.getItem('loggedInUser');
+        fetch(`${NOTE_API_BASE_URL}/${loggedInUser}`)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -84,11 +98,10 @@ class AppRouter extends Component {
             })
             .then(userNotes => this.setState({
                 notes: userNotes,
-                filteredNotes: userNotes,
+                filteredNotes: userNotes
             })).catch(error => {
-                console.log("Note Service - componentDidMount Exception");
+                console.log("Note Service - getAllNotes Exception");
             })
-
     }
 
     handleAddNote(note) {
@@ -108,7 +121,8 @@ class AppRouter extends Component {
     }
 
     handleRemoveNote(noteId) {
-        fetch(`${NOTE_API_BASE_URL}/${userid}/${noteId}`, {
+        let loggedInUser = localStorage.getItem('loggedInUser');
+        fetch(`${NOTE_API_BASE_URL}/${loggedInUser}/${noteId}`, {
             method: 'DELETE',
             headers: { "Content-Type": "application/json" }
         }).then(response => {
@@ -124,7 +138,8 @@ class AppRouter extends Component {
 
     // ...updateNote ... is spread operator which eventually passes the value in the object / variable used along with it.
     handleUpdateNote(updatedNote) {
-        fetch(`${NOTE_API_BASE_URL}/${userid}/${updatedNote.id}`, {
+        let loggedInUser = localStorage.getItem('loggedInUser');
+        fetch(`${NOTE_API_BASE_URL}/${loggedInUser}/${updatedNote.id}`, {
             method: 'PUT',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedNote)
@@ -158,14 +173,24 @@ class AppRouter extends Component {
 
     render() {
         return (
-            <Fragment><MuiThemeProvider theme={theme}><Header filterNotes={this.filterNotes} /></MuiThemeProvider>
-                <Router history={history}>
+            <Fragment>
+                <MuiThemeProvider theme={theme}>
+                    <Header filterNotes={this.filterNotes} handleLoadData={this.handleLoadData} />
+                </MuiThemeProvider>
+                <Router history={history}>                                           
                     <Switch>
                         <Route
                             path="/"
                             exact
                             render={() => <MuiThemeProvider theme={theme}>
                                 <WelcomePage />
+                            </MuiThemeProvider>}
+                        />
+                         <Route
+                            path="/login"
+                            exact
+                            render={() => <MuiThemeProvider theme={theme}>
+                                <Auth />
                             </MuiThemeProvider>}
                         />
                         <ProtectedRoute
@@ -182,7 +207,7 @@ class AppRouter extends Component {
                             notes={this.state.filteredNotes}
                             handleUpdateNote={this.handleUpdateNote}
                         />
-                    </Switch>
+                    </Switch>  
                 </Router>
             </Fragment>
         );

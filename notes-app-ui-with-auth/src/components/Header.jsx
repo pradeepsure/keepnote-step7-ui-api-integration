@@ -48,6 +48,7 @@ class Header extends Component {
 
       localStorage.setItem('isLoggedIn', true);
       this.setState({ isLoggedIn: true });
+      this.props.handleLoadData();
     })
   }
 
@@ -75,13 +76,13 @@ class Header extends Component {
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               Keep - Notes
             </Typography>
-            {isLoggedIn ? <SearchBar filterNotes={this.props.filterNotes}/> : ''}
+            {isLoggedIn ? <SearchBar filterNotes={this.props.filterNotes} /> : ''}
             <div className={classes.grow} />
-            <Button onClick={isLoggedIn ? this.handleLogout : this.handleLogin}>
+            <Button className={classes.button} onClick={isLoggedIn ? this.handleLogout : this.handleLogin}>
               {isLoggedIn ? 'Logout' : 'Login'}
-            </Button>
+            </Button>                    
           </Toolbar>
-        </AppBar>
+        </AppBar>         
       </div>
     );
   }
