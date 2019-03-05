@@ -8,7 +8,9 @@ import { withStyles } from '@material-ui/core/styles';
 import SearchBar from './SearchBar';
 import { Button } from '@material-ui/core';
 import DescriptionIcon from '@material-ui/icons/Description';
-import { firebase, googleAuthProvider } from '../firebase/firebase';
+import { firebase } from '../firebase/firebase';
+
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -39,17 +41,28 @@ class Header extends Component {
     this.handleLogout = this.handleLogout.bind(this);
   }
 
-  handleLogin() {
-    return firebase.auth().signInWithPopup(googleAuthProvider).then(success => {
-      var user = firebase.auth().currentUser;
-      if (user != null) {
-        localStorage.setItem('loggedInUser', user.email);
-      }
-
-      localStorage.setItem('isLoggedIn', true);
+  // life cycle method to get the props for child component when parent component rerenders
+  componentWillReceiveProps() {
+    if (this.props.isLoggedIn) {
       this.setState({ isLoggedIn: true });
-      this.props.handleLoadData();
-    })
+    } 
+  }
+
+  // handleLogin() {
+  //   return firebase.auth().signInWithPopup(googleAuthProvider).then(success => {
+  //     var user = firebase.auth().currentUser;
+  //     if (user != null) {
+  //       localStorage.setItem('loggedInUser', user.email);
+  //     }
+
+  //     localStorage.setItem('isLoggedIn', true);
+  //     this.setState({ isLoggedIn: true });
+  //     this.props.handleLoadData();
+  //   })
+  // }
+
+  handleLogin() {
+    // dummy method. Login now happens in AuthenticationForm or ThirdPartyLogin components
   }
 
   handleLogout() {
@@ -68,6 +81,7 @@ class Header extends Component {
     // Object destructruing -- if assignee and variable name is same then we can do below
     // instead of isLoggedIn = this.state.isLoggedIn -- as both we are using same name
     const { isLoggedIn } = this.state;
+
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -78,15 +92,17 @@ class Header extends Component {
             </Typography>
             {isLoggedIn ? <SearchBar filterNotes={this.props.filterNotes} /> : ''}
             <div className={classes.grow} />
-            <Button className={classes.button} onClick={isLoggedIn ? this.handleLogout : this.handleLogin}>
+            {/* <Button className={classes.button} onClick={isLoggedIn ? this.handleLogout : this.handleLogin}>
               {isLoggedIn ? 'Logout' : 'Login'}
-            </Button>                    
+            </Button> */}           
+            <Link to="/login"><Button className={classes.button} onClick={isLoggedIn ? this.handleLogout : this.handleLogin}>
+              {isLoggedIn ? 'Logout' : 'Login'}
+            </Button></Link>
           </Toolbar>
-        </AppBar>         
+        </AppBar>
       </div>
     );
   }
-
 }
 
 Header.propTypes = {
