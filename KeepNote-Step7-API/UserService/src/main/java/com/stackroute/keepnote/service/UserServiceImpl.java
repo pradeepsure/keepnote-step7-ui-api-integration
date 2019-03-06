@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
 			savedUser = userRepository.insert(user);
 			if (savedUser == null) {
-				throw new UserAlreadyExistsException("User with ID " + user.getUserId() + " already exists");
+				throw new UserAlreadyExistsException("User with ID " + user.getUserId() + " not saved");
 			}
 		}
 		return savedUser;

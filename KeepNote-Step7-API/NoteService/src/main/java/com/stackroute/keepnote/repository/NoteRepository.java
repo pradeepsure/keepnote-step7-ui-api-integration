@@ -12,5 +12,7 @@ import com.stackroute.keepnote.model.NoteUser;
 * */
 @Repository
 public interface NoteRepository extends MongoRepository<NoteUser, String> {
+	
+	public NoteUser findByUserId(String userId);
 
 }

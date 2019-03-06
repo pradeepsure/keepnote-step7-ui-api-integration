@@ -1,5 +1,6 @@
 package com.stackroute.keepnote.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -31,6 +32,9 @@ public class NoteUser {
 	}
 
 	public List<Note> getNotes() {
+		if(null == notes){
+			notes = new ArrayList<>();
+		}
 		return notes;
 	}
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Divider, Paper, Tabs, Tab, Typography } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
-import SignupForm from './SignupForm';
+import SignUpForm from './SignUpForm';
 import SignInForm from './SignInForm';
 import { MuiThemeProvider } from '@material-ui/core';
 import ThirdPartyLogin from './ThirdPartyLogin';
@@ -59,11 +59,11 @@ class AuthenticationForm extends Component {
                                         onChange={this.handleChange}
                                         variant="fullWidth"
                                     >
-                                        <Tab label="Sign up" />
                                         <Tab label="Sign in" />
+                                        <Tab label="Sign up" />
                                     </Tabs>
-                                    {this.state.value === 0 && <TabContainer><SignupForm /></TabContainer>}
-                                    {this.state.value === 1 && <TabContainer><SignInForm /></TabContainer>}
+                                    {this.state.value === 0 && <TabContainer><SignInForm handleLogin={handleLogin}/></TabContainer>}
+                                    {this.state.value === 1 && <TabContainer><SignUpForm handleLogin={handleLogin}/></TabContainer>}
                                     <Divider variant="fullWidth" />
                                     <ThirdPartyLogin handleLogin={handleLogin} />
                                 </Paper>

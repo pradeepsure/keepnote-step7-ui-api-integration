@@ -47,33 +47,21 @@ public class NoteServiceImpl implements NoteService {
 	 */
 	@Override
 	public boolean createNote(Note note) {
-		int counter = 1;
 		boolean noteCreated = false;
 		noteUser = new NoteUser();
 		notes = new ArrayList<>();
 		note.setNoteCreationDate(new Date());
-		if (noteRepository.existsById(note.getNoteCreatedBy())) {
-			notes = noteRepository.findById(note.getNoteCreatedBy()).get().getNotes();
-
-			Iterator iterator = notes.iterator();
-			Note note1 = new Note();
-			while (iterator.hasNext()) {
-				note1 = (Note) iterator.next();
-			}
-			note.setId(note1.getId() + counter);
-			notes.add(note);
-			noteUser.setUserId(note.getNoteCreatedBy());
-			noteUser.setNotes(notes);
-			if (noteRepository.save(noteUser) != null) {
+		NoteUser findByUserId = noteRepository.findByUserId(note.getNoteCreatedBy());
+		if (findByUserId != null) {
+			findByUserId.getNotes().add(note);
+			if (noteRepository.save(findByUserId) != null) {
 				noteCreated = true;
 			}
 		} else {
-			note.setId(counter);
-			notes.add(note);
-			noteUser.setUserId(note.getNoteCreatedBy());
-			noteUser.setNotes(notes);
-
-			if (noteRepository.insert(noteUser) != null) {
+			findByUserId = new NoteUser();
+			findByUserId.setUserId(note.getNoteCreatedBy());
+			findByUserId.getNotes().add(note);
+			if (noteRepository.insert(findByUserId) != null) {
 				noteCreated = true;
 			}
 		}
@@ -221,11 +209,12 @@ public class NoteServiceImpl implements NoteService {
 	 */
 	@Override
 	public List<Note> getAllNoteByUserId(String userId) {
-		if(!noteRepository.findById(userId).isPresent()){
-			return null;
-		}
-		List<Note> allNotes = noteRepository.findById(userId).get().getNotes();
+		NoteUser findByUserId = noteRepository.findByUserId(userId);
+		if(null!=findByUserId){
+		List<Note> allNotes = findByUserId.getNotes();
 		return allNotes;
+		} 
+		return new ArrayList<>();
 	}
 
 }

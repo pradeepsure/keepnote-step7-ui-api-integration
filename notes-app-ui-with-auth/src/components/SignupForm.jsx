@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { firebase } from '../firebase/firebase';
 import { history } from '../routers/AppRouter';
 import { Grid } from '@material-ui/core';
 //import { checkSignUpErrorType } from '../utils/check-signup-error-type';
@@ -28,7 +27,9 @@ const styles = theme => ({
     }
 });
 
-class SignupForm extends React.Component {
+const USER_API_BASE_URL = 'http://localhost:8080/user-service/api/v1/user';
+
+class SignUpForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -51,12 +52,24 @@ class SignupForm extends React.Component {
     }
     handleSignUp(event) {
         event.preventDefault();
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => {
+
+        const newUser = {
+            userId: this.state.email,
+            userName: this.state.email,
+            userPassword: this.state.password
+        }
+
+        fetch(`${USER_API_BASE_URL}`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newUser)
+        }).then(response => response.json())
+            .then(user => {
                 localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('loggedInUser', this.state.email);
+                this.props.handleLogin();
                 history.push('/home');
-            })
-            .catch((error) => {
+            }).catch((error) => {
                 //const errorCode = error.code;
                 //const errorType = checkSignUpErrorType(errorCode);
                 const errorType = 'email';
@@ -75,7 +88,8 @@ class SignupForm extends React.Component {
                         errorMessageInPassword: errorMessage,
                     })
                 }
-            });
+                console.log("User Service - handleSignUp Exception");
+            });           
     }
     render() {
         const { classes } = this.props;
@@ -121,9 +135,8 @@ class SignupForm extends React.Component {
     }
 }
 
-SignupForm.propTypes = {
-    classes: PropTypes.object.isRequired,
-    
+SignUpForm.propTypes = {
+    classes: PropTypes.object.isRequired,    
 };
 
-export default withStyles(styles)(SignupForm);
+export default withStyles(styles)(SignUpForm);

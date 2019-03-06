@@ -22,4 +22,6 @@ public interface ReminderService {
     Reminder getReminderById(String reminderId) throws ReminderNotFoundException;
 
     List<Reminder> getAllReminders();
+    
+    List<Reminder> getRemindersByUser(String userId);
 }

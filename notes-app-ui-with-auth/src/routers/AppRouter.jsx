@@ -23,6 +23,7 @@ const theme = createMuiTheme({
 export const history = createHistory();
 
 const NOTE_API_BASE_URL = 'http://localhost:8082/note-service/api/v1/note';
+const REMINDER_API_BASE_URL = 'http://localhost:8085/reminder-service/api/v1/reminder';
 
 class AppRouter extends Component {
     // filteredNotes is used to show the matching notes during search
@@ -32,17 +33,24 @@ class AppRouter extends Component {
             notes: [],
             filteredNotes: [],
             isLoggedIn :false,
+            reminders : [],
+            currentPage: 'notes',
         };
         this.handleLoadData = this.handleLoadData.bind(this);        
         this.handleAddNote = this.handleAddNote.bind(this);
         this.handleRemoveNote = this.handleRemoveNote.bind(this);
         this.handleUpdateNote = this.handleUpdateNote.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
+
+        this.handleCurrentPage = this.handleCurrentPage.bind(this);
+        this.handleAddReminder = this.handleAddReminder.bind(this);
+        this.handleRemoveReminder = this.handleRemoveReminder.bind(this);
     }
 
     handleLogin(){
         this.setState(currState => ({
-            isLoggedIn: true
+            isLoggedIn: true,
+            currentPage: 'notes'
         }));
         this.handleLoadData();
     }
@@ -57,7 +65,7 @@ class AppRouter extends Component {
 
     handleLoadData() {
         this.getAllNotes();
-        //this.getAllReminders();
+        this.getAllReminders();
     }
 
     getAllNotes() {
@@ -153,6 +161,68 @@ class AppRouter extends Component {
         }
     }
 
+    // Login for Reminder Service calls - START
+    handleCurrentPage(currentPage){
+        this.setState((currState) => ({
+            currentPage: currentPage,
+        }));
+    }
+
+    getAllReminders() {
+        // Get all the Reminders
+        let loggedInUser = localStorage.getItem('loggedInUser');
+        fetch(`${REMINDER_API_BASE_URL}/${loggedInUser}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                else if (response.status === 404) {
+                    return Promise.reject(new Error('Invalid URL'))
+                }
+                else if (response.status === 401) {
+                    return Promise.reject(new Error('UnAuthorized User...'));
+                }
+                else {
+                    return Promise.reject(new Error('Some internal error occured...'));
+                }
+            })
+            .then(reminders => this.setState({
+                reminders: reminders,
+            })).catch(error => {
+                console.log("Reminder Service - getAllReminders Exception");
+            })
+    } 
+
+    handleAddReminder(reminder) {
+        fetch(`${REMINDER_API_BASE_URL}`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(reminder)
+        }).then(response => response.json())
+          .then(reminder => {
+            this.setState((currState) => ({
+                reminders: currState.reminders.concat([reminder]),
+            }));                
+            });
+    }
+
+    handleRemoveReminder(reminderId) {
+        let loggedInUser = localStorage.getItem('loggedInUser');
+        fetch(`${REMINDER_API_BASE_URL}/${loggedInUser}/${reminderId}`, {
+            method: 'DELETE',
+            headers: { "Content-Type": "application/json" }
+        })
+          //  .then(response => response.json())
+            .then(response => {
+                const reminderIndexToRemove = this.state.reminders.findIndex(reminder => reminder.reminderId === reminderId);
+                this.setState((currState) => ({
+                    reminders: [...currState.reminders.slice(0, reminderIndexToRemove), ...currState.reminders.slice(reminderIndexToRemove + 1)]
+                }));
+            });
+    }
+    
+    // Login for Reminder Service calls - END
+
     render() {
         return (
             <Fragment>                
@@ -160,9 +230,10 @@ class AppRouter extends Component {
                 <div>
                 <MuiThemeProvider theme={theme}>
                     <Header 
-                        filterNotes={this.filterNotes} 
-                        handleLoadData={this.handleLoadData}
-                        isLoggedIn={this.state.isLoggedIn} />
+                        filterNotes={this.filterNotes}                        
+                        isLoggedIn={this.state.isLoggedIn}
+                        handleCurrentPage={this.handleCurrentPage} 
+                        currentPage={this.state.currentPage} />
                 </MuiThemeProvider>                                          
                     <Switch>
                         <Route
@@ -185,7 +256,11 @@ class AppRouter extends Component {
                             component={NotesApp}
                             notes={this.state.filteredNotes}
                             handleAddNote={this.handleAddNote}
-                            handleRemoveNote={this.handleRemoveNote}                            
+                            handleRemoveNote={this.handleRemoveNote}
+                            currentPage={this.state.currentPage}
+                            reminders={this.state.reminders}
+                            handleAddReminder = {this.handleAddReminder}
+                            handleRemoveReminder = {this.handleRemoveReminder}                            
                         />
                         <ProtectedRoute
                             path="/edit-note/:id"

@@ -1,10 +1,15 @@
 package com.stackroute.keepnote.controller;
 
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,14 +37,16 @@ import io.swagger.annotations.ApiOperation;
  * is equivalent to using @Controller and @ResposeBody annotation
  */
 @RestController
-@RequestMapping("/api/v1/reminder")
-@Api
+@RequestMapping("reminder-service/api/v1/reminder")
+@Api(tags = "ReminderController")
+@CrossOrigin(origins = "*")
 public class ReminderController {
+	private Log log = LogFactory.getLog(getClass());
 
 	/*
-	 * From the problem statement, we can understand that the application requires
-	 * us to implement five functionalities regarding reminder. They are as
-	 * following:
+	 * From the problem statement, we can understand that the application
+	 * requires us to implement five functionalities regarding reminder. They
+	 * are as following:
 	 * 
 	 * 1. Create a reminder 2. Delete a reminder 3. Update a reminder 4. Get all
 	 * reminders by userId 5. Get a specific reminder by id.
@@ -58,7 +65,7 @@ public class ReminderController {
 		this.reminderService = reminderService;
 
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String swaggerUi() {
 		return "redirect:/swagger-ui.html";
@@ -69,106 +76,119 @@ public class ReminderController {
 	 * Serialized reminder object from request body and save the reminder in
 	 * database. Please note that the reminderId has to be unique. This handler
 	 * method should return any one of the status messages basis on different
-	 * situations: 1. 201(CREATED - In case of successful creation of the reminder
-	 * 2. 409(CONFLICT) - In case of duplicate reminder ID
+	 * situations: 1. 201(CREATED - In case of successful creation of the
+	 * reminder 2. 409(CONFLICT) - In case of duplicate reminder ID
 	 *
-	 * This handler method should map to the URL "/api/v1/reminder" using HTTP POST
-	 * method".
+	 * This handler method should map to the URL "/api/v1/reminder" using HTTP
+	 * POST method".
 	 */
 	@ApiOperation(value = "Create Reminder")
 	@PostMapping
-	public ResponseEntity createReminder(@RequestBody Reminder reminder) {
-
-		ResponseEntity responseEntity = null;
-
+	public ResponseEntity<?> createReminder(@RequestBody Reminder reminder) {
+		log.info("createReminder : STARTED");
+		HttpHeaders headers = new HttpHeaders();
+		String loggedInUser = reminder.getReminderCreatedBy();
 		try {
-			reminderService.createReminder(reminder);
-			responseEntity = new ResponseEntity(reminder, HttpStatus.CREATED);
+			reminder.setReminderCreatedBy(loggedInUser);
+			reminder.setReminderCreationDate(new Date());
+			if (reminderService.createReminder(reminder) != null) {
+				return new ResponseEntity<>(reminder, headers, HttpStatus.CREATED);
+			}
 		} catch (ReminderNotCreatedException e) {
-			responseEntity = new ResponseEntity("Unable to create Reminder", HttpStatus.CONFLICT);
+			e.printStackTrace();
+			return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
 		}
-
-		return responseEntity;
+		log.info("createReminder : ENDED");
+		return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
 	}
 
 	/*
 	 * Define a handler method which will delete a reminder from a database.
 	 * 
 	 * This handler method should return any one of the status messages basis on
-	 * different situations: 1. 200(OK) - If the reminder deleted successfully from
-	 * database. 2. 404(NOT FOUND) - If the reminder with specified reminderId is
-	 * not found.
+	 * different situations: 1. 200(OK) - If the reminder deleted successfully
+	 * from database. 2. 404(NOT FOUND) - If the reminder with specified
+	 * reminderId is not found.
 	 * 
-	 * This handler method should map to the URL "/api/v1/reminder/{id}" using HTTP
-	 * Delete method" where "id" should be replaced by a valid reminderId without {}
+	 * This handler method should map to the URL "/api/v1/reminder/{id}" using
+	 * HTTP Delete method" where "id" should be replaced by a valid reminderId
+	 * without {}
 	 */
 	@ApiOperation(value = "Delete Reminder")
-	@DeleteMapping("/{reminderId}")
-	public ResponseEntity deleteReminder(@PathVariable() String reminderId) {
-
-		ResponseEntity responseEntity = null;
+	@DeleteMapping("/{userId}/{id}")
+	public ResponseEntity<?> deleteReminder(@PathVariable("userId") String userId, @PathVariable("id") String id) {
+		log.info("deleteReminder : STARTED");
+		HttpHeaders headers = new HttpHeaders();
 
 		try {
-			reminderService.deleteReminder(reminderId);
-			responseEntity = new ResponseEntity("Reminder Deleted Successfully", HttpStatus.OK);
-		} catch (ReminderNotFoundException exception) {
-			responseEntity = new ResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
+			if (reminderService.deleteReminder(id)) {
+				return new ResponseEntity<>(headers, HttpStatus.OK);
+			}
+		} catch (ReminderNotFoundException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 		}
-
-		return responseEntity;
+		log.info("deleteReminder : ENDED");
+		return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 	}
 
 	/*
-	 * Define a handler method which will update a specific reminder by reading the
-	 * Serialized object from request body and save the updated reminder details in
-	 * a database. This handler method should return any one of the status messages
-	 * basis on different situations: 1. 200(OK) - If the reminder updated
-	 * successfully. 2. 404(NOT FOUND) - If the reminder with specified reminderId
-	 * is not found.
+	 * Define a handler method which will update a specific reminder by reading
+	 * the Serialized object from request body and save the updated reminder
+	 * details in a database. This handler method should return any one of the
+	 * status messages basis on different situations: 1. 200(OK) - If the
+	 * reminder updated successfully. 2. 404(NOT FOUND) - If the reminder with
+	 * specified reminderId is not found.
 	 * 
-	 * This handler method should map to the URL "/api/v1/reminder/{id}" using HTTP
-	 * PUT method.
+	 * This handler method should map to the URL "/api/v1/reminder/{id}" using
+	 * HTTP PUT method.
 	 */
 	@ApiOperation(value = "Update Reminder")
-	@PutMapping("/{reminderId}")
-	public ResponseEntity updateReminder(@PathVariable() String reminderId, @RequestBody Reminder reminder) {
-
-		ResponseEntity responseEntity = null;
-
+	@PutMapping("/{userId}/{id}")
+	public ResponseEntity<?> updateReminder(@RequestBody Reminder reminder, @PathVariable("userId") String userId,
+			@PathVariable("id") String id) {
+		log.info("updateReminder : STARTED");
+		HttpHeaders headers = new HttpHeaders();
 		try {
-
-			Reminder updatedReminder = reminderService.updateReminder(reminder, reminderId);
-			responseEntity = new ResponseEntity(updatedReminder, HttpStatus.OK);
-		} catch (ReminderNotFoundException exception) {
-			responseEntity = new ResponseEntity("Unable to update Reminder", HttpStatus.NOT_FOUND);
+			if (reminderService.updateReminder(reminder, id) != null) {
+				return new ResponseEntity<>(headers, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
+			}
+		} catch (ReminderNotFoundException e) {
+			e.printStackTrace();
 		}
-
-		return responseEntity;
+		log.info("updateReminder : ENDED");
+		return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 	}
 
 	/*
-	 * Define a handler method which will show details of a specific reminder. This
-	 * handler method should return any one of the status messages basis on
+	 * Define a handler method which will show details of a specific reminder.
+	 * This handler method should return any one of the status messages basis on
 	 * different situations: 1. 200(OK) - If the reminder found successfully. 2.
 	 * 404(NOT FOUND) - If the reminder with specified reminderId is not found.
 	 * 
-	 * This handler method should map to the URL "/api/v1/reminder/{id}" using HTTP
-	 * GET method where "id" should be replaced by a valid reminderId without {}
+	 * This handler method should map to the URL "/api/v1/reminder/{id}" using
+	 * HTTP GET method where "id" should be replaced by a valid reminderId
+	 * without {}
 	 */
 	@ApiOperation(value = "Get Reminder by ID")
-	@GetMapping("/{reminderId}")
-	public ResponseEntity getReminderById(@PathVariable() String reminderId) {
-
-		ResponseEntity responseEntity = null;
-
+	@GetMapping("/{userId}/{id}")
+	public ResponseEntity<?> getReminderById(@PathVariable("userId") String userId, @PathVariable("id") String id) {
+		log.info("getReminderById : STARTED");
+		HttpHeaders headers = new HttpHeaders();
 		try {
-			Reminder fetchedReminder = reminderService.getReminderById(reminderId);
-			responseEntity = new ResponseEntity(fetchedReminder, HttpStatus.OK);
-		} catch (ReminderNotFoundException exception) {
-			responseEntity = new ResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
-		}
+			Reminder reminder = reminderService.getReminderById(id);
+			if (reminder != null) {
+				return new ResponseEntity<>(headers, HttpStatus.OK);
+			}
 
-		return responseEntity;
+		} catch (ReminderNotFoundException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
+		}
+		log.info("getReminderById : ENDED");
+		return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 	}
 
 	/*
@@ -177,21 +197,26 @@ public class ReminderController {
 	 * situations: 1. 200(OK) - If the reminder found successfully. 2. 404(NOT
 	 * FOUND) - If the reminder with specified reminderId is not found.
 	 * 
-	 * This handler method should map to the URL "/api/v1/reminder" using HTTP GET
-	 * method
+	 * This handler method should map to the URL "/api/v1/reminder" using HTTP
+	 * GET method
 	 */
 	@ApiOperation(value = "Get all Reminders by ID")
-	@GetMapping()
-	public ResponseEntity getAllReminderById() {
-
-		ResponseEntity responseEntity = null;
-		List<Reminder> allReminders = reminderService.getAllReminders();
-		if (!allReminders.isEmpty()) {
-			responseEntity = new ResponseEntity(allReminders, HttpStatus.OK);
-		} else {
-			responseEntity = new ResponseEntity("No Reminders to show", HttpStatus.NOT_FOUND);
+	@GetMapping("/{userId}")
+	public ResponseEntity<?> getAllReminders(@PathVariable("userId") String userId) {
+		log.info("getAllReminders : STARTED");
+		HttpHeaders headers = new HttpHeaders();
+		try {
+				List<Reminder> reminders =reminderService.getRemindersByUser(userId);
+				if(reminders!=null)
+				{
+					return new ResponseEntity<List<Reminder>>(reminders,headers, HttpStatus.OK);
+				}
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 		}
-
-		return responseEntity;
+		log.info("getAllReminders : ENDED");
+		return new ResponseEntity<>(headers, HttpStatus.OK);
 	}
 }

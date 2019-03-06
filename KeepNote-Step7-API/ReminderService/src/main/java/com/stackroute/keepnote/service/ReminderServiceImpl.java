@@ -30,95 +30,101 @@ public class ReminderServiceImpl implements ReminderService {
 	 * object using the new keyword.
 	 */
 	private ReminderRepository reminderRepository;
-
-	@Autowired
-	public ReminderServiceImpl(ReminderRepository reminderRepository) {
-		this.reminderRepository = reminderRepository;
-	}
+	
+    @Autowired
+    public ReminderServiceImpl(ReminderRepository reminderRepository) {
+        this.reminderRepository = reminderRepository;
+    }
 
 	/*
 	 * This method should be used to save a new reminder.Call the corresponding
 	 * method of Respository interface.
 	 */
-	@Override
 	public Reminder createReminder(Reminder reminder) throws ReminderNotCreatedException {
 
-		reminder.setReminderCreationDate(new Date());
-		Reminder createdReminder = reminderRepository.insert(reminder);
-		if (createdReminder == null) {
-			throw new ReminderNotCreatedException("Unable to create Reminder");
-		}
-		return createdReminder;
-	}
+        reminder.setReminderCreationDate(new Date());
+        Reminder reminder1 = reminderRepository.insert(reminder);
+        if (reminder1 == null) {
+            throw new ReminderNotCreatedException("Unable to create Reminder!!!! Please try again");
+        }
+        return reminder1;
+    }
 
 	/*
 	 * This method should be used to delete an existing reminder.Call the
 	 * corresponding method of Respository interface.
 	 */
-	@Override
 	public boolean deleteReminder(String reminderId) throws ReminderNotFoundException {
 
-		boolean reminderDeleted = false;
-		Reminder fetchedReminder = null;
+        boolean status = false;
+        Reminder fetchedReminder = null;
 
-		try {
-			fetchedReminder = reminderRepository.findById(reminderId).get();
-			reminderRepository.delete(fetchedReminder);
-			reminderDeleted = true;
-		} catch (NoSuchElementException exception) {
-			throw new ReminderNotFoundException("Reminder does not exists to delete " + reminderId);
-		}
+        try {
+            fetchedReminder = reminderRepository.findById(reminderId).get();
+            reminderRepository.delete(fetchedReminder);
+            status = true;
+        } catch (NoSuchElementException exception) {
+            throw new ReminderNotFoundException("Reminder does not exists");
+        }
 
-		return reminderDeleted;
-	}
+
+        return status;
+    }
 
 	/*
 	 * This method should be used to update a existing reminder.Call the
 	 * corresponding method of Respository interface.
 	 */
-	@Override
 	public Reminder updateReminder(Reminder reminder, String reminderId) throws ReminderNotFoundException {
-		Reminder fetchedReminder = null;
+        Reminder fetchedReminder = null;
 
-		try {
+        try {
 
-			fetchedReminder = reminderRepository.findById(reminderId).get();
-			fetchedReminder.setReminderName(reminder.getReminderName());
-			fetchedReminder.setReminderDescription(reminder.getReminderDescription());
-			fetchedReminder.setReminderCreatedBy(reminder.getReminderCreatedBy());
-			fetchedReminder.setReminderType(reminder.getReminderType());
-			fetchedReminder.setReminderCreationDate(new Date());
-			reminderRepository.save(fetchedReminder);
+            fetchedReminder = reminderRepository.findById(reminderId).get();
+            fetchedReminder.setReminderName(reminder.getReminderName());
+            fetchedReminder.setReminderDescription(reminder.getReminderDescription());
+            fetchedReminder.setReminderCreatedBy(reminder.getReminderCreatedBy());
+            fetchedReminder.setReminderType(reminder.getReminderType());
+            fetchedReminder.setReminderCreationDate(new Date());
+            reminderRepository.save(fetchedReminder);
 
-		} catch (NoSuchElementException exception) {
-			throw new ReminderNotFoundException("Reminder does not exists " + reminderId);
-		}
+        } catch (NoSuchElementException exception) {
+            throw new ReminderNotFoundException("Reminder does not exists");
+        }
 
-		return fetchedReminder;
-	}
-
+        return fetchedReminder;
+		
+		
+	    }	
 	/*
 	 * This method should be used to get a reminder by reminderId.Call the
 	 * corresponding method of Respository interface.
 	 */
-	@Override
 	public Reminder getReminderById(String reminderId) throws ReminderNotFoundException {
 
-		Reminder fetchedReminder = reminderRepository.findById(reminderId).get();
-		if (fetchedReminder == null) {
-			throw new ReminderNotFoundException("Reminder with id: " + reminderId + " does not exists");
-		}
+        Reminder fetchedReminder = reminderRepository.findById(reminderId).get();
+        if (fetchedReminder == null) {
+            throw new ReminderNotFoundException("Reminder with id:- " + reminderId + "does not exists");
+        }
 
-		return fetchedReminder;
-	}
+        return fetchedReminder;
+    }
 
 	/*
 	 * This method should be used to get all reminders. Call the corresponding
 	 * method of Respository interface.
 	 */
-	@Override
+
 	public List<Reminder> getAllReminders() {
+
 		return reminderRepository.findAll();
+	}
+
+	@Override
+	public List<Reminder> getRemindersByUser(String userId) {
+		List<Reminder> findByReminderCreatedBy = reminderRepository.findByReminderCreatedBy(userId);
+		
+		return findByReminderCreatedBy;
 	}
 
 }

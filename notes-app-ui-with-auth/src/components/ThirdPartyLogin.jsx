@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IconButton, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import googleLogo from '../google-logo.png';
+import googleLogo from '../images/google-logo.png';
 import { firebase, googleAuthProvider } from '../firebase/firebase';
 import { history } from '../routers/AppRouter';
 
@@ -36,7 +36,6 @@ class ThirdPartyLogin extends React.Component {
                 }
                 localStorage.setItem('isLoggedIn', true);
                 this.props.handleLogin();
-                //this.props.handleLoadData();
                 history.push('/home');
             })
     }

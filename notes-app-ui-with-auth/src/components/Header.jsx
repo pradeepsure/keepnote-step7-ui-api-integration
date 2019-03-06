@@ -28,7 +28,7 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1
-  },
+  }, 
 });
 
 class Header extends Component {
@@ -39,13 +39,18 @@ class Header extends Component {
     }
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleNoteCurrentPage = this.handleNoteCurrentPage.bind(this);
+    this.handleRemCurrentPage = this.handleRemCurrentPage.bind(this);
   }
+
+  handleNoteCurrentPage() { this.props.handleCurrentPage('notes') }
+  handleRemCurrentPage() { this.props.handleCurrentPage('rem') }
 
   // life cycle method to get the props for child component when parent component rerenders
   componentWillReceiveProps() {
-    if (this.props.isLoggedIn) {
+    if (this.props.isLoggedIn && localStorage.getItem('isLoggedIn')) {
       this.setState({ isLoggedIn: true });
-    } 
+    }
   }
 
   // handleLogin() {
@@ -66,18 +71,14 @@ class Header extends Component {
   }
 
   handleLogout() {
-    return firebase.auth().signOut().then(() => {
-      localStorage.removeItem('isLoggedIn', false);
-      localStorage.removeItem('loggedInUser');
-      this.setState({ isLoggedIn: false });
-    }).catch(function (error) {
-      // An error happened.
-    });
-
+    localStorage.removeItem('isLoggedIn', false);
+    localStorage.removeItem('loggedInUser');
+    this.setState({ isLoggedIn: false });
+    return firebase.auth().signOut();
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, currentPage } = this.props;
     // Object destructruing -- if assignee and variable name is same then we can do below
     // instead of isLoggedIn = this.state.isLoggedIn -- as both we are using same name
     const { isLoggedIn } = this.state;
@@ -91,11 +92,14 @@ class Header extends Component {
               Keep - Notes
             </Typography>
             {isLoggedIn ? <SearchBar filterNotes={this.props.filterNotes} /> : ''}
-            <div className={classes.grow} />
-            {/* <Button className={classes.button} onClick={isLoggedIn ? this.handleLogout : this.handleLogin}>
-              {isLoggedIn ? 'Logout' : 'Login'}
-            </Button> */}           
-            <Link to="/login"><Button className={classes.button} onClick={isLoggedIn ? this.handleLogout : this.handleLogin}>
+            <div className={classes.grow} />            
+            {isLoggedIn ? <div> <Button className={classes.button} onClick={this.handleNoteCurrentPage}>
+              {currentPage === 'notes' ? 'Notes' : 'View Notes'}
+            </Button>
+            <Button className={classes.button} onClick={this.handleRemCurrentPage}>
+            {currentPage === 'rem' ? 'Remainders' : 'View Remainders'}
+            </Button> </div> : ''}                       
+            <Link to="/login" style={{ textDecoration: 'none', color: 'white' }}><Button className={classes.button} onClick={isLoggedIn ? this.handleLogout : this.handleLogin}>
               {isLoggedIn ? 'Logout' : 'Login'}
             </Button></Link>
           </Toolbar>

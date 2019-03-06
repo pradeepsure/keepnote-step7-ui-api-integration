@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { firebase } from '../firebase/firebase';
 import { history } from '../routers/AppRouter';
 import { Grid } from '@material-ui/core';
 //import { checkSignInErrorType } from '../utils/check-signin-error-type';
@@ -22,22 +21,24 @@ const styles = theme => ({
     marginTop: {
         marginTop: theme.spacing.unit * 8,
     },
-    signUpButton: {
+    signInButton: {
         marginTop: theme.spacing.unit * 2,
         alignSelf: 'flex-end',
     }
 });
+
+const USER_API_BASE_URL = 'http://localhost:8080/user-service/api/v1/user';
 
 class SignInForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             email: '',
-            password:'',
+            password: '',
             errorMessageInUsername: '',
             errorMessageInPassword: '',
         };
-        this.handleLogin = this.handleLogin.bind(this);
+        this.handleSignIn = this.handleSignIn.bind(this);
     }
     handleChange(name) {
         return (event => {
@@ -48,19 +49,43 @@ class SignInForm extends React.Component {
             });
         });
     }
-    handleLogin(event) {
+    handleSignIn(event) {
         event.preventDefault();
-        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => {
+
+        const newUser = {
+            userId: this.state.email,
+            userName: this.state.email,
+            userPassword: this.state.password
+        }
+
+        fetch(`${USER_API_BASE_URL}/login`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newUser)
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            else if (response.status === 404) {
+                return Promise.reject(new Error('Credentials Not Matched'))
+            }
+            else if (response.status === 401) {
+                return Promise.reject(new Error('UnAuthorized User...'));
+            }
+            else {
+                return Promise.reject(new Error('Some internal error occured...'));
+            }
+        }).then(user => {
                 localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('loggedInUser', this.state.email);
+                this.props.handleLogin();
                 history.push('/home');
-            })
-            .catch((error) => {
-                 //const errorCode = error.code;
-                 const errorMessage = error.message;
-                 //const errorType = checkSignInErrorType(errorCode);
-                 const errorType = 'email';
-                 if (errorType === 'email') {
+            }).catch((error) => {
+                //const errorCode = error.code;
+                const errorMessage = error.message;
+                //const errorType = checkSignInErrorType(errorCode);
+                const errorType = 'email';
+                if (errorType === 'email') {
                     this.setState({
                         errorMessageInUsername: errorMessage,
                     });
@@ -82,7 +107,7 @@ class SignInForm extends React.Component {
             <>
                 <Grid container spacing={0}>
                     <Grid item xs={12}>
-                        <form className={classes.root} onSubmit={this.handleLogin}>
+                        <form className={classes.root} onSubmit={this.handleSignIn}>
                             <TextField
                                 className={classes.textField}
                                 required
@@ -108,7 +133,7 @@ class SignInForm extends React.Component {
                                 onChange={this.handleChange('password')}
                                 margin="normal"
                             />
-                            <Button type="submit" color="primary" variant="outlined" className={classes.signUpButton}>
+                            <Button type="submit" color="primary" variant="outlined" className={classes.signInButton}>
                                 SignIn
                             </Button>
                         </form>

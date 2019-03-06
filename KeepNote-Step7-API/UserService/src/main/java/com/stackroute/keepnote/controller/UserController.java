@@ -1,8 +1,16 @@
 package com.stackroute.keepnote.controller;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +21,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+//import com.stackroute.keepnote.exception.UserIdAndPasswordMismatchException;
+//import com.stackroute.keepnote.exception.UserNullException;
 import com.stackroute.keepnote.exceptions.UserAlreadyExistsException;
 import com.stackroute.keepnote.exceptions.UserNotFoundException;
+//import com.stackroute.keepnote.jwt.SecurityTokenGenrator;
 import com.stackroute.keepnote.model.User;
 import com.stackroute.keepnote.service.UserService;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -29,10 +42,13 @@ import io.swagger.annotations.ApiOperation;
  * format. Starting from Spring 4 and above, we can use @RestController annotation which 
  * is equivalent to using @Controller and @ResposeBody annotation
  */
+
 @RestController
-@RequestMapping("/api/v1/user")
-@Api
+@RequestMapping("/user-service/api/v1/user")
+@Api(tags = "UserController")
+@CrossOrigin(origins = "*")
 public class UserController {
+	private Log log = LogFactory.getLog(getClass());
 
 	/*
 	 * Autowiring should be implemented for the UserService. (Use
@@ -64,14 +80,18 @@ public class UserController {
 	@ApiOperation(value = "Register User")
 	@PostMapping()
 	public ResponseEntity<?> registerUser(@RequestBody User user) {
-		ResponseEntity responseEntity = null;
-		try {
+		log.info("registerUser : STARTED ");
+		HttpHeaders headers = new HttpHeaders();
+		
+		try {			
 			userService.registerUser(user);
-			responseEntity = new ResponseEntity(HttpStatus.CREATED);
+			return new ResponseEntity<>(user, headers, HttpStatus.CREATED);
 		} catch (UserAlreadyExistsException e) {
-			responseEntity = new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
+			e.printStackTrace();
+			return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
 		}
-		return responseEntity;
+//		log.info("registerUser : ENDED ");
+//		return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
 	}
 
 	/*
@@ -88,17 +108,17 @@ public class UserController {
 	@ApiOperation(value = "Update User")
 	@PutMapping("/{userId}")
 	public ResponseEntity updateUser(@PathVariable() String userId, @RequestBody User user) {
-
-		ResponseEntity responseEntity = null;
+		log.info("updateUser : STARTED ");
+		HttpHeaders headers = new HttpHeaders();
 
 		try {
 			User fetchedUser = userService.updateUser(userId, user);
-			responseEntity = new ResponseEntity(fetchedUser, HttpStatus.OK);
+			log.info("updateUser : ENDED ");
+			return new ResponseEntity<>(fetchedUser, headers, HttpStatus.OK);
 		} catch (UserNotFoundException exception) {
-			responseEntity = new ResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
+			exception.printStackTrace();
+			return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 		}
-
-		return responseEntity;
 	}
 
 	/*
@@ -114,16 +134,18 @@ public class UserController {
 	@ApiOperation(value = "Delete User")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable() String id) {
+		log.info("deleteUser : STARTED ");
+		HttpHeaders headers = new HttpHeaders();
 		ResponseEntity responseEntity = null;
 
 		try {
 			userService.deleteUser(id);
-			responseEntity = new ResponseEntity<>("Successfully Deleted User with id: " + id, HttpStatus.OK);
+			log.info("deleteUser : ENDED ");
+			return new ResponseEntity<>(headers, HttpStatus.OK);
 		} catch (UserNotFoundException exception) {
-			responseEntity = new ResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
+			exception.printStackTrace();
+			return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 		}
-
-		return responseEntity;
 	}
 
 	/*
@@ -137,10 +159,12 @@ public class UserController {
 	@ApiOperation(value = "Get User")
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getUserById(@PathVariable() String id) {
+		log.info("getUserById : STARTED");
+		HttpHeaders headers = new HttpHeaders();
 		ResponseEntity responseEntity = null;
 		try {
 			User fetchedUser = userService.getUserById(id);
-			responseEntity = new ResponseEntity(fetchedUser, HttpStatus.OK);
+			responseEntity = new ResponseEntity(fetchedUser, headers, HttpStatus.OK);
 
 		} catch (UserNotFoundException e) {
 			responseEntity = new ResponseEntity<>("User Not Found " + e.getMessage() + " ", HttpStatus.NOT_FOUND);
@@ -148,4 +172,57 @@ public class UserController {
 
 		return responseEntity;
 	}
+	
+	@ApiOperation(value = "Login User")
+	@PostMapping("/login")
+	public ResponseEntity loginUser(@RequestBody User loginUserDetails) {
+		log.info("loginUser : STARTED");
+		HttpHeaders headers = new HttpHeaders();
+		ResponseEntity responseEntity = null;
+
+		try {
+			
+			String userId = loginUserDetails.getUserId();
+			String userName = loginUserDetails.getUserName();
+			String password = loginUserDetails.getUserPassword();
+			boolean validationFailed = false;
+
+			if (userName == null || password == null) {
+				responseEntity =  new ResponseEntity<>("User credentials cannot be empty  ", headers, HttpStatus.NOT_FOUND);
+			}
+
+			User user = getUserByName(userId);
+
+			if (user == null) {
+				responseEntity = new ResponseEntity<>("{}", headers, HttpStatus.NOT_FOUND);
+			}
+
+			String fetchedPassword = user.getUserPassword();
+			if (!password.equals(fetchedPassword)) {
+				validationFailed = true;
+				responseEntity = new ResponseEntity<>("{}", headers, HttpStatus.NOT_FOUND);
+			}
+			
+			if(!validationFailed) {
+				responseEntity = new ResponseEntity(user, headers, HttpStatus.OK);
+			}
+			
+
+		} catch (Exception exception) {
+			responseEntity = new ResponseEntity<>("{}", headers, HttpStatus.UNAUTHORIZED);
+		}
+		
+		return responseEntity;
+	}
+	
+	private User getUserByName(String id) {
+		log.info("getUserByName : STARTED");
+		try {
+			return userService.getUserById(id);	
+		} catch (UserNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 }

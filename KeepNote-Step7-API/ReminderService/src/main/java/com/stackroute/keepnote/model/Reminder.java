@@ -22,6 +22,7 @@ public class Reminder {
 	 * be accepted from the user but should be always initialized with the system
 	 * date.
 	 */
+	
 	@Id
 	private String reminderId;
 	private String reminderName;
@@ -29,61 +30,59 @@ public class Reminder {
 	private String reminderType;
 	private String reminderCreatedBy;
 	private Date reminderCreationDate;
-
+	private Color color;
+	public Color getColor() {
+		return color;
+	}
+	public void setColor(Color color) {
+		this.color = color;
+	}
 	public String getReminderId() {
 		return reminderId;
 	}
-
 	public void setReminderId(String reminderId) {
 		this.reminderId = reminderId;
 	}
-
 	public String getReminderName() {
 		return reminderName;
 	}
-
 	public void setReminderName(String reminderName) {
 		this.reminderName = reminderName;
 	}
-
 	public String getReminderDescription() {
 		return reminderDescription;
 	}
-
 	public void setReminderDescription(String reminderDescription) {
 		this.reminderDescription = reminderDescription;
 	}
-
 	public String getReminderType() {
 		return reminderType;
 	}
-
 	public void setReminderType(String reminderType) {
 		this.reminderType = reminderType;
 	}
-
 	public String getReminderCreatedBy() {
 		return reminderCreatedBy;
 	}
-
 	public void setReminderCreatedBy(String reminderCreatedBy) {
 		this.reminderCreatedBy = reminderCreatedBy;
 	}
-
 	public Date getReminderCreationDate() {
 		return reminderCreationDate;
 	}
-
 	public void setReminderCreationDate(Date reminderCreationDate) {
 		this.reminderCreationDate = reminderCreationDate;
 	}
 
-	@Override
-	public String toString() {
-		return "Reminder{" + "reminderId='" + reminderId + '\'' + ", reminderName='" + reminderName + '\''
-				+ ", reminderDescription='" + reminderDescription + '\'' + ", reminderType='" + reminderType + '\''
-				+ ", reminderCreatedBy='" + reminderCreatedBy + '\'' + ", reminderCreationDate=" + reminderCreationDate
-				+ '}';
-	}
-
+    @Override
+    public String toString() {
+        return "Reminder{" +
+                "reminderId='" + reminderId + '\'' +
+                ", reminderName='" + reminderName + '\'' +
+                ", reminderDescription='" + reminderDescription + '\'' +
+                ", reminderType='" + reminderType + '\'' +
+                ", reminderCreatedBy='" + reminderCreatedBy + '\'' +
+                ", reminderCreationDate=" + reminderCreationDate +
+                '}';
+    }
 }
