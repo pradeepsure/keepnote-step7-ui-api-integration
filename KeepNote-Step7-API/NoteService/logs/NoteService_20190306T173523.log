@@ -1120,3 +1120,525 @@
 				Return Value: <200 OK,[],{}>
 2019-03-06 18:06:11 [http-nio-8082-exec-9] INFO  c.s.keepnote.aspectj.LoggingAspect -
 				*****************************************
+2019-03-06 18:19:32 [http-nio-8082-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:19:32 [http-nio-8082-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:19:32 [http-nio-8082-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:19:32 [http-nio-8082-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:19:32 [http-nio-8082-exec-1] INFO  c.s.k.controller.NoteController -
+				getAllNoteByUserId : STARTED 
+2019-03-06 18:19:32 [http-nio-8082-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:19:32 [http-nio-8082-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:19:32 [http-nio-8082-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:19:32 [http-nio-8082-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:19:32 [http-nio-8082-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:19:32 [http-nio-8082-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:19:32 [http-nio-8082-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [raviegp@gmail.com]
+2019-03-06 18:19:32 [http-nio-8082-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,[],{}>
+2019-03-06 18:19:32 [http-nio-8082-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:19:52 [http-nio-8082-exec-3] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:19:52 [http-nio-8082-exec-3] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : addNote
+2019-03-06 18:19:52 [http-nio-8082-exec-3] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [Note{id=1325738, noteTitle='Note - 1', noteDescription='Note - 1 Desc', noteStatus='null', noteCreationDate=null, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}]
+2019-03-06 18:19:52 [http-nio-8082-exec-3] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:19:52 [http-nio-8082-exec-3] INFO  c.s.k.controller.NoteController -
+				createNote : STARTED 
+2019-03-06 18:19:53 [http-nio-8082-exec-3] INFO  c.s.k.controller.NoteController -
+				Note created successfully..... 
+2019-03-06 18:19:53 [http-nio-8082-exec-3] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:19:53 [http-nio-8082-exec-3] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : addNote
+2019-03-06 18:19:53 [http-nio-8082-exec-3] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [Note{id=1325738, noteTitle='Note - 1', noteDescription='Note - 1 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:19:52 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}]
+2019-03-06 18:19:53 [http-nio-8082-exec-3] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:19:53 [http-nio-8082-exec-3] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:19:53 [http-nio-8082-exec-3] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : addNote
+2019-03-06 18:19:53 [http-nio-8082-exec-3] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [Note{id=1325738, noteTitle='Note - 1', noteDescription='Note - 1 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:19:52 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}]
+2019-03-06 18:19:53 [http-nio-8082-exec-3] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <201 Created,Note{id=1325738, noteTitle='Note - 1', noteDescription='Note - 1 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:19:52 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null},{}>
+2019-03-06 18:19:53 [http-nio-8082-exec-3] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:20:02 [http-nio-8082-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:20:02 [http-nio-8082-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : addNote
+2019-03-06 18:20:02 [http-nio-8082-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [Note{id=495775, noteTitle='Note - 2', noteDescription='Note - 2 Desc', noteStatus='null', noteCreationDate=null, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}]
+2019-03-06 18:20:02 [http-nio-8082-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:20:02 [http-nio-8082-exec-4] INFO  c.s.k.controller.NoteController -
+				createNote : STARTED 
+2019-03-06 18:20:02 [http-nio-8082-exec-4] INFO  c.s.k.controller.NoteController -
+				Note created successfully..... 
+2019-03-06 18:20:02 [http-nio-8082-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:20:02 [http-nio-8082-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : addNote
+2019-03-06 18:20:02 [http-nio-8082-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [Note{id=495775, noteTitle='Note - 2', noteDescription='Note - 2 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:20:02 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}]
+2019-03-06 18:20:02 [http-nio-8082-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:20:02 [http-nio-8082-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:20:02 [http-nio-8082-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : addNote
+2019-03-06 18:20:02 [http-nio-8082-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [Note{id=495775, noteTitle='Note - 2', noteDescription='Note - 2 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:20:02 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}]
+2019-03-06 18:20:02 [http-nio-8082-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <201 Created,Note{id=495775, noteTitle='Note - 2', noteDescription='Note - 2 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:20:02 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null},{}>
+2019-03-06 18:20:02 [http-nio-8082-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:20:03 [http-nio-8082-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:20:03 [http-nio-8082-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:20:03 [http-nio-8082-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:20:03 [http-nio-8082-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:20:03 [http-nio-8082-exec-5] INFO  c.s.k.controller.NoteController -
+				getAllNoteByUserId : STARTED 
+2019-03-06 18:20:03 [http-nio-8082-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:20:03 [http-nio-8082-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:20:03 [http-nio-8082-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:20:03 [http-nio-8082-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:20:03 [http-nio-8082-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:20:03 [http-nio-8082-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:20:03 [http-nio-8082-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [raviegp@gmail.com]
+2019-03-06 18:20:03 [http-nio-8082-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,[Note{id=1325738, noteTitle='Note - 1', noteDescription='Note - 1 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:19:52 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}, Note{id=495775, noteTitle='Note - 2', noteDescription='Note - 2 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:20:02 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}],{}>
+2019-03-06 18:20:03 [http-nio-8082-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:21:02 [http-nio-8082-exec-6] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:21:02 [http-nio-8082-exec-6] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:21:02 [http-nio-8082-exec-6] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:21:02 [http-nio-8082-exec-6] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:21:02 [http-nio-8082-exec-6] INFO  c.s.k.controller.NoteController -
+				getAllNoteByUserId : STARTED 
+2019-03-06 18:21:02 [http-nio-8082-exec-6] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:21:02 [http-nio-8082-exec-6] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:21:02 [http-nio-8082-exec-6] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:21:02 [http-nio-8082-exec-6] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:21:02 [http-nio-8082-exec-6] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:21:02 [http-nio-8082-exec-6] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:21:02 [http-nio-8082-exec-6] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [raviegp@gmail.com]
+2019-03-06 18:21:02 [http-nio-8082-exec-6] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,[Note{id=1325738, noteTitle='Note - 1', noteDescription='Note - 1 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:19:52 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}, Note{id=495775, noteTitle='Note - 2', noteDescription='Note - 2 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:20:02 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}],{}>
+2019-03-06 18:21:02 [http-nio-8082-exec-6] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:21:18 [http-nio-8082-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:21:18 [http-nio-8082-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:21:18 [http-nio-8082-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [rv@gmail.com]
+2019-03-06 18:21:18 [http-nio-8082-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:21:18 [http-nio-8082-exec-7] INFO  c.s.k.controller.NoteController -
+				getAllNoteByUserId : STARTED 
+2019-03-06 18:21:18 [http-nio-8082-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:21:18 [http-nio-8082-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:21:18 [http-nio-8082-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [rv@gmail.com]
+2019-03-06 18:21:18 [http-nio-8082-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:21:18 [http-nio-8082-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:21:18 [http-nio-8082-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:21:18 [http-nio-8082-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [rv@gmail.com]
+2019-03-06 18:21:18 [http-nio-8082-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,[],{}>
+2019-03-06 18:21:18 [http-nio-8082-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:21:42 [http-nio-8082-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:21:42 [http-nio-8082-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : addNote
+2019-03-06 18:21:42 [http-nio-8082-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [Note{id=430122, noteTitle='Note - 1 RV', noteDescription='Note - 1 RV Desc', noteStatus='null', noteCreationDate=null, noteCreatedBy='rv@gmail.com', category=null, reminders=null}]
+2019-03-06 18:21:42 [http-nio-8082-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:21:42 [http-nio-8082-exec-8] INFO  c.s.k.controller.NoteController -
+				createNote : STARTED 
+2019-03-06 18:21:42 [http-nio-8082-exec-8] INFO  c.s.k.controller.NoteController -
+				Note created successfully..... 
+2019-03-06 18:21:42 [http-nio-8082-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:21:42 [http-nio-8082-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : addNote
+2019-03-06 18:21:42 [http-nio-8082-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [Note{id=430122, noteTitle='Note - 1 RV', noteDescription='Note - 1 RV Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:21:42 IST 2019, noteCreatedBy='rv@gmail.com', category=null, reminders=null}]
+2019-03-06 18:21:42 [http-nio-8082-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:21:42 [http-nio-8082-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:21:42 [http-nio-8082-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : addNote
+2019-03-06 18:21:42 [http-nio-8082-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [Note{id=430122, noteTitle='Note - 1 RV', noteDescription='Note - 1 RV Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:21:42 IST 2019, noteCreatedBy='rv@gmail.com', category=null, reminders=null}]
+2019-03-06 18:21:42 [http-nio-8082-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <201 Created,Note{id=430122, noteTitle='Note - 1 RV', noteDescription='Note - 1 RV Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:21:42 IST 2019, noteCreatedBy='rv@gmail.com', category=null, reminders=null},{}>
+2019-03-06 18:21:42 [http-nio-8082-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:21:53 [http-nio-8082-exec-9] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:21:53 [http-nio-8082-exec-9] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : addNote
+2019-03-06 18:21:53 [http-nio-8082-exec-9] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [Note{id=1932034, noteTitle='Note - 2 RV', noteDescription='Note - 2 RV Desc', noteStatus='null', noteCreationDate=null, noteCreatedBy='rv@gmail.com', category=null, reminders=null}]
+2019-03-06 18:21:53 [http-nio-8082-exec-9] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:21:53 [http-nio-8082-exec-9] INFO  c.s.k.controller.NoteController -
+				createNote : STARTED 
+2019-03-06 18:21:53 [http-nio-8082-exec-9] INFO  c.s.k.controller.NoteController -
+				Note created successfully..... 
+2019-03-06 18:21:53 [http-nio-8082-exec-9] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:21:53 [http-nio-8082-exec-9] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : addNote
+2019-03-06 18:21:53 [http-nio-8082-exec-9] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [Note{id=1932034, noteTitle='Note - 2 RV', noteDescription='Note - 2 RV Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:21:53 IST 2019, noteCreatedBy='rv@gmail.com', category=null, reminders=null}]
+2019-03-06 18:21:53 [http-nio-8082-exec-9] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:21:53 [http-nio-8082-exec-9] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:21:53 [http-nio-8082-exec-9] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : addNote
+2019-03-06 18:21:53 [http-nio-8082-exec-9] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [Note{id=1932034, noteTitle='Note - 2 RV', noteDescription='Note - 2 RV Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:21:53 IST 2019, noteCreatedBy='rv@gmail.com', category=null, reminders=null}]
+2019-03-06 18:21:53 [http-nio-8082-exec-9] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <201 Created,Note{id=1932034, noteTitle='Note - 2 RV', noteDescription='Note - 2 RV Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:21:53 IST 2019, noteCreatedBy='rv@gmail.com', category=null, reminders=null},{}>
+2019-03-06 18:21:53 [http-nio-8082-exec-9] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:22:43 [http-nio-8082-exec-10] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:22:43 [http-nio-8082-exec-10] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:22:43 [http-nio-8082-exec-10] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [rv@gmail.com]
+2019-03-06 18:22:43 [http-nio-8082-exec-10] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:22:43 [http-nio-8082-exec-10] INFO  c.s.k.controller.NoteController -
+				getAllNoteByUserId : STARTED 
+2019-03-06 18:22:43 [http-nio-8082-exec-10] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:22:43 [http-nio-8082-exec-10] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:22:43 [http-nio-8082-exec-10] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [rv@gmail.com]
+2019-03-06 18:22:43 [http-nio-8082-exec-10] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:22:43 [http-nio-8082-exec-10] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:22:43 [http-nio-8082-exec-10] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:22:43 [http-nio-8082-exec-10] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [rv@gmail.com]
+2019-03-06 18:22:43 [http-nio-8082-exec-10] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,[Note{id=430122, noteTitle='Note - 1 RV', noteDescription='Note - 1 RV Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:21:42 IST 2019, noteCreatedBy='rv@gmail.com', category=null, reminders=null}, Note{id=1932034, noteTitle='Note - 2 RV', noteDescription='Note - 2 RV Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:21:53 IST 2019, noteCreatedBy='rv@gmail.com', category=null, reminders=null}],{}>
+2019-03-06 18:22:43 [http-nio-8082-exec-10] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:22:56 [http-nio-8082-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:22:56 [http-nio-8082-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:22:56 [http-nio-8082-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:22:56 [http-nio-8082-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:22:56 [http-nio-8082-exec-1] INFO  c.s.k.controller.NoteController -
+				getAllNoteByUserId : STARTED 
+2019-03-06 18:22:56 [http-nio-8082-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:22:56 [http-nio-8082-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:22:56 [http-nio-8082-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:22:56 [http-nio-8082-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:22:56 [http-nio-8082-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:22:56 [http-nio-8082-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:22:56 [http-nio-8082-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [raviegp@gmail.com]
+2019-03-06 18:22:56 [http-nio-8082-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,[Note{id=1325738, noteTitle='Note - 1', noteDescription='Note - 1 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:19:52 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}, Note{id=495775, noteTitle='Note - 2', noteDescription='Note - 2 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:20:02 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}],{}>
+2019-03-06 18:22:56 [http-nio-8082-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:25:55 [http-nio-8082-exec-3] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:25:55 [http-nio-8082-exec-3] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:25:55 [http-nio-8082-exec-3] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:25:55 [http-nio-8082-exec-3] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:25:55 [http-nio-8082-exec-3] INFO  c.s.k.controller.NoteController -
+				getAllNoteByUserId : STARTED 
+2019-03-06 18:25:55 [http-nio-8082-exec-3] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:25:55 [http-nio-8082-exec-3] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:25:55 [http-nio-8082-exec-3] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:25:55 [http-nio-8082-exec-3] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:25:55 [http-nio-8082-exec-3] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:25:55 [http-nio-8082-exec-3] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:25:55 [http-nio-8082-exec-3] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [raviegp@gmail.com]
+2019-03-06 18:25:55 [http-nio-8082-exec-3] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,[Note{id=1325738, noteTitle='Note - 1', noteDescription='Note - 1 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:19:52 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}, Note{id=495775, noteTitle='Note - 2', noteDescription='Note - 2 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:20:02 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}],{}>
+2019-03-06 18:25:55 [http-nio-8082-exec-3] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:26:26 [http-nio-8082-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:26:26 [http-nio-8082-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:26:26 [http-nio-8082-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:26:26 [http-nio-8082-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:26:26 [http-nio-8082-exec-4] INFO  c.s.k.controller.NoteController -
+				getAllNoteByUserId : STARTED 
+2019-03-06 18:26:26 [http-nio-8082-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:26:26 [http-nio-8082-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:26:26 [http-nio-8082-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:26:26 [http-nio-8082-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:26:26 [http-nio-8082-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:26:26 [http-nio-8082-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:26:26 [http-nio-8082-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [raviegp@gmail.com]
+2019-03-06 18:26:26 [http-nio-8082-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,[Note{id=1325738, noteTitle='Note - 1', noteDescription='Note - 1 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:19:52 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}, Note{id=495775, noteTitle='Note - 2', noteDescription='Note - 2 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:20:02 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}],{}>
+2019-03-06 18:26:26 [http-nio-8082-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:26:51 [http-nio-8082-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:26:51 [http-nio-8082-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:26:51 [http-nio-8082-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:26:51 [http-nio-8082-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:26:51 [http-nio-8082-exec-5] INFO  c.s.k.controller.NoteController -
+				getAllNoteByUserId : STARTED 
+2019-03-06 18:26:51 [http-nio-8082-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:26:51 [http-nio-8082-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:26:51 [http-nio-8082-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:26:51 [http-nio-8082-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:26:51 [http-nio-8082-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:26:51 [http-nio-8082-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:26:51 [http-nio-8082-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [raviegp@gmail.com]
+2019-03-06 18:26:51 [http-nio-8082-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,[Note{id=1325738, noteTitle='Note - 1', noteDescription='Note - 1 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:19:52 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}, Note{id=495775, noteTitle='Note - 2', noteDescription='Note - 2 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:20:02 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}],{}>
+2019-03-06 18:26:51 [http-nio-8082-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:27:07 [http-nio-8082-exec-6] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:27:07 [http-nio-8082-exec-6] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:07 [http-nio-8082-exec-6] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:27:07 [http-nio-8082-exec-6] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:27:07 [http-nio-8082-exec-6] INFO  c.s.k.controller.NoteController -
+				getAllNoteByUserId : STARTED 
+2019-03-06 18:27:07 [http-nio-8082-exec-6] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:27:07 [http-nio-8082-exec-6] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:07 [http-nio-8082-exec-6] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:27:07 [http-nio-8082-exec-6] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:27:07 [http-nio-8082-exec-6] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:27:07 [http-nio-8082-exec-6] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:07 [http-nio-8082-exec-6] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [raviegp@gmail.com]
+2019-03-06 18:27:07 [http-nio-8082-exec-6] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,[Note{id=1325738, noteTitle='Note - 1', noteDescription='Note - 1 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:19:52 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}, Note{id=495775, noteTitle='Note - 2', noteDescription='Note - 2 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:20:02 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}],{}>
+2019-03-06 18:27:07 [http-nio-8082-exec-6] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:27:13 [http-nio-8082-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:27:13 [http-nio-8082-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:13 [http-nio-8082-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:27:13 [http-nio-8082-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:27:13 [http-nio-8082-exec-7] INFO  c.s.k.controller.NoteController -
+				getAllNoteByUserId : STARTED 
+2019-03-06 18:27:13 [http-nio-8082-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:27:13 [http-nio-8082-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:13 [http-nio-8082-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:27:13 [http-nio-8082-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:27:13 [http-nio-8082-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:27:13 [http-nio-8082-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:13 [http-nio-8082-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [raviegp@gmail.com]
+2019-03-06 18:27:13 [http-nio-8082-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,[Note{id=1325738, noteTitle='Note - 1', noteDescription='Note - 1 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:19:52 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}, Note{id=495775, noteTitle='Note - 2', noteDescription='Note - 2 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:20:02 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}],{}>
+2019-03-06 18:27:13 [http-nio-8082-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:27:30 [http-nio-8082-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:27:30 [http-nio-8082-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:30 [http-nio-8082-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:27:30 [http-nio-8082-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:27:30 [http-nio-8082-exec-8] INFO  c.s.k.controller.NoteController -
+				getAllNoteByUserId : STARTED 
+2019-03-06 18:27:30 [http-nio-8082-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:27:30 [http-nio-8082-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:30 [http-nio-8082-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [raviegp@gmail.com]
+2019-03-06 18:27:30 [http-nio-8082-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:27:30 [http-nio-8082-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:27:30 [http-nio-8082-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:30 [http-nio-8082-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [raviegp@gmail.com]
+2019-03-06 18:27:30 [http-nio-8082-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,[Note{id=1325738, noteTitle='Note - 1', noteDescription='Note - 1 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:19:52 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}, Note{id=495775, noteTitle='Note - 2', noteDescription='Note - 2 Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:20:02 IST 2019, noteCreatedBy='raviegp@gmail.com', category=null, reminders=null}],{}>
+2019-03-06 18:27:30 [http-nio-8082-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:27:42 [http-nio-8082-exec-9] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:27:42 [http-nio-8082-exec-9] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:42 [http-nio-8082-exec-9] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [rv@gmail.com]
+2019-03-06 18:27:42 [http-nio-8082-exec-9] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:27:42 [http-nio-8082-exec-9] INFO  c.s.k.controller.NoteController -
+				getAllNoteByUserId : STARTED 
+2019-03-06 18:27:42 [http-nio-8082-exec-9] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:27:42 [http-nio-8082-exec-9] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:42 [http-nio-8082-exec-9] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [rv@gmail.com]
+2019-03-06 18:27:42 [http-nio-8082-exec-9] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:27:42 [http-nio-8082-exec-9] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:27:42 [http-nio-8082-exec-9] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:42 [http-nio-8082-exec-9] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [rv@gmail.com]
+2019-03-06 18:27:42 [http-nio-8082-exec-9] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,[Note{id=430122, noteTitle='Note - 1 RV', noteDescription='Note - 1 RV Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:21:42 IST 2019, noteCreatedBy='rv@gmail.com', category=null, reminders=null}, Note{id=1932034, noteTitle='Note - 2 RV', noteDescription='Note - 2 RV Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:21:53 IST 2019, noteCreatedBy='rv@gmail.com', category=null, reminders=null}],{}>
+2019-03-06 18:27:42 [http-nio-8082-exec-9] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:27:48 [http-nio-8082-exec-10] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @Before ************
+2019-03-06 18:27:48 [http-nio-8082-exec-10] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:48 [http-nio-8082-exec-10] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [rv@gmail.com]
+2019-03-06 18:27:48 [http-nio-8082-exec-10] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:27:48 [http-nio-8082-exec-10] INFO  c.s.k.controller.NoteController -
+				getAllNoteByUserId : STARTED 
+2019-03-06 18:27:48 [http-nio-8082-exec-10] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @After ************
+2019-03-06 18:27:48 [http-nio-8082-exec-10] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:48 [http-nio-8082-exec-10] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [rv@gmail.com]
+2019-03-06 18:27:48 [http-nio-8082-exec-10] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:27:48 [http-nio-8082-exec-10] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************Note Aspect @AfterReturning ************
+2019-03-06 18:27:48 [http-nio-8082-exec-10] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : getAllNoteByUserId
+2019-03-06 18:27:48 [http-nio-8082-exec-10] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [rv@gmail.com]
+2019-03-06 18:27:48 [http-nio-8082-exec-10] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,[Note{id=430122, noteTitle='Note - 1 RV', noteDescription='Note - 1 RV Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:21:42 IST 2019, noteCreatedBy='rv@gmail.com', category=null, reminders=null}, Note{id=1932034, noteTitle='Note - 2 RV', noteDescription='Note - 2 RV Desc', noteStatus='null', noteCreationDate=Wed Mar 06 18:21:53 IST 2019, noteCreatedBy='rv@gmail.com', category=null, reminders=null}],{}>
+2019-03-06 18:27:48 [http-nio-8082-exec-10] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:28:53 [RMI TCP Connection(62)-10.141.95.151] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin -
+				Application shutdown requested.
+2019-03-06 18:28:53 [RMI TCP Connection(62)-10.141.95.151] INFO  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext -
+				Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@3bd82cf5: startup date [Wed Mar 06 17:35:24 IST 2019]; root of context hierarchy
+2019-03-06 18:28:53 [RMI TCP Connection(62)-10.141.95.151] INFO  o.s.c.s.DefaultLifecycleProcessor -
+				Stopping beans in phase 2147483647
+2019-03-06 18:28:53 [RMI TCP Connection(62)-10.141.95.151] INFO  o.s.j.e.a.AnnotationMBeanExporter -
+				Unregistering JMX-exposed beans on shutdown
+2019-03-06 18:28:53 [RMI TCP Connection(62)-10.141.95.151] INFO  org.mongodb.driver.connection -
+				Closed connection [connectionId{localValue:2, serverValue:53}] to localhost:27017 because the pool has been closed.

@@ -1118,3 +1118,163 @@
 				Return Value: <200 OK,User{userId='rv@gmail.com', userName='rv@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=Wed Mar 06 17:09:49 IST 2019},{}>
 2019-03-06 18:06:04 [http-nio-8080-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
 				*****************************************
+2019-03-06 18:19:32 [http-nio-8080-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @Before ************
+2019-03-06 18:19:32 [http-nio-8080-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:19:32 [http-nio-8080-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [User{userId='raviegp@gmail.com', userName='raviegp@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:19:32 [http-nio-8080-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:19:32 [http-nio-8080-exec-1] INFO  c.s.k.controller.UserController -
+				loginUser : STARTED
+2019-03-06 18:19:32 [http-nio-8080-exec-1] INFO  c.s.k.controller.UserController -
+				getUserByName : STARTED
+2019-03-06 18:19:32 [http-nio-8080-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @After ************
+2019-03-06 18:19:32 [http-nio-8080-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:19:32 [http-nio-8080-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [User{userId='raviegp@gmail.com', userName='raviegp@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:19:32 [http-nio-8080-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:19:32 [http-nio-8080-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @AfterReturning ************
+2019-03-06 18:19:32 [http-nio-8080-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:19:32 [http-nio-8080-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [User{userId='raviegp@gmail.com', userName='raviegp@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:19:32 [http-nio-8080-exec-1] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,User{userId='raviegp@gmail.com', userName='raviegp@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=Wed Mar 06 17:08:28 IST 2019},{}>
+2019-03-06 18:19:32 [http-nio-8080-exec-1] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:21:18 [http-nio-8080-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @Before ************
+2019-03-06 18:21:18 [http-nio-8080-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:21:18 [http-nio-8080-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [User{userId='rv@gmail.com', userName='rv@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:21:18 [http-nio-8080-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:21:18 [http-nio-8080-exec-4] INFO  c.s.k.controller.UserController -
+				loginUser : STARTED
+2019-03-06 18:21:18 [http-nio-8080-exec-4] INFO  c.s.k.controller.UserController -
+				getUserByName : STARTED
+2019-03-06 18:21:18 [http-nio-8080-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @After ************
+2019-03-06 18:21:18 [http-nio-8080-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:21:18 [http-nio-8080-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [User{userId='rv@gmail.com', userName='rv@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:21:18 [http-nio-8080-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:21:18 [http-nio-8080-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @AfterReturning ************
+2019-03-06 18:21:18 [http-nio-8080-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:21:18 [http-nio-8080-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [User{userId='rv@gmail.com', userName='rv@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:21:18 [http-nio-8080-exec-4] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,User{userId='rv@gmail.com', userName='rv@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=Wed Mar 06 17:09:49 IST 2019},{}>
+2019-03-06 18:21:18 [http-nio-8080-exec-4] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:22:56 [http-nio-8080-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @Before ************
+2019-03-06 18:22:56 [http-nio-8080-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:22:56 [http-nio-8080-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [User{userId='raviegp@gmail.com', userName='raviegp@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:22:56 [http-nio-8080-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:22:56 [http-nio-8080-exec-5] INFO  c.s.k.controller.UserController -
+				loginUser : STARTED
+2019-03-06 18:22:56 [http-nio-8080-exec-5] INFO  c.s.k.controller.UserController -
+				getUserByName : STARTED
+2019-03-06 18:22:56 [http-nio-8080-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @After ************
+2019-03-06 18:22:56 [http-nio-8080-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:22:56 [http-nio-8080-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [User{userId='raviegp@gmail.com', userName='raviegp@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:22:56 [http-nio-8080-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:22:56 [http-nio-8080-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @AfterReturning ************
+2019-03-06 18:22:56 [http-nio-8080-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:22:56 [http-nio-8080-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [User{userId='raviegp@gmail.com', userName='raviegp@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:22:56 [http-nio-8080-exec-5] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,User{userId='raviegp@gmail.com', userName='raviegp@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=Wed Mar 06 17:08:28 IST 2019},{}>
+2019-03-06 18:22:56 [http-nio-8080-exec-5] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:27:30 [http-nio-8080-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @Before ************
+2019-03-06 18:27:30 [http-nio-8080-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:27:30 [http-nio-8080-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [User{userId='raviegp@gmail.com', userName='raviegp@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:27:30 [http-nio-8080-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:27:30 [http-nio-8080-exec-7] INFO  c.s.k.controller.UserController -
+				loginUser : STARTED
+2019-03-06 18:27:30 [http-nio-8080-exec-7] INFO  c.s.k.controller.UserController -
+				getUserByName : STARTED
+2019-03-06 18:27:30 [http-nio-8080-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @After ************
+2019-03-06 18:27:30 [http-nio-8080-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:27:30 [http-nio-8080-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [User{userId='raviegp@gmail.com', userName='raviegp@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:27:30 [http-nio-8080-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:27:30 [http-nio-8080-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @AfterReturning ************
+2019-03-06 18:27:30 [http-nio-8080-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:27:30 [http-nio-8080-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [User{userId='raviegp@gmail.com', userName='raviegp@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:27:30 [http-nio-8080-exec-7] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,User{userId='raviegp@gmail.com', userName='raviegp@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=Wed Mar 06 17:08:28 IST 2019},{}>
+2019-03-06 18:27:30 [http-nio-8080-exec-7] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:27:42 [http-nio-8080-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @Before ************
+2019-03-06 18:27:42 [http-nio-8080-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:27:42 [http-nio-8080-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [User{userId='rv@gmail.com', userName='rv@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:27:42 [http-nio-8080-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:27:42 [http-nio-8080-exec-8] INFO  c.s.k.controller.UserController -
+				loginUser : STARTED
+2019-03-06 18:27:42 [http-nio-8080-exec-8] INFO  c.s.k.controller.UserController -
+				getUserByName : STARTED
+2019-03-06 18:27:42 [http-nio-8080-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @After ************
+2019-03-06 18:27:42 [http-nio-8080-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:27:42 [http-nio-8080-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Args : [User{userId='rv@gmail.com', userName='rv@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:27:42 [http-nio-8080-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*********************************
+2019-03-06 18:27:42 [http-nio-8080-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				************UserService Aspect @AfterReturning ************
+2019-03-06 18:27:42 [http-nio-8080-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method Name : loginUser
+2019-03-06 18:27:42 [http-nio-8080-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Method arguments : [User{userId='rv@gmail.com', userName='rv@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=null}]
+2019-03-06 18:27:42 [http-nio-8080-exec-8] DEBUG c.s.keepnote.aspectj.LoggingAspect -
+				Return Value: <200 OK,User{userId='rv@gmail.com', userName='rv@gmail.com', userPassword='Welcome', userMobile='null', userAddedDate=Wed Mar 06 17:09:49 IST 2019},{}>
+2019-03-06 18:27:42 [http-nio-8080-exec-8] INFO  c.s.keepnote.aspectj.LoggingAspect -
+				*****************************************
+2019-03-06 18:29:04 [RMI TCP Connection(88)-10.141.95.151] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin -
+				Application shutdown requested.
+2019-03-06 18:29:04 [RMI TCP Connection(88)-10.141.95.151] INFO  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext -
+				Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@77f1baf5: startup date [Wed Mar 06 17:07:37 IST 2019]; root of context hierarchy
+2019-03-06 18:29:04 [RMI TCP Connection(88)-10.141.95.151] INFO  o.s.c.s.DefaultLifecycleProcessor -
+				Stopping beans in phase 2147483647
+2019-03-06 18:29:04 [RMI TCP Connection(88)-10.141.95.151] INFO  o.s.j.e.a.AnnotationMBeanExporter -
+				Unregistering JMX-exposed beans on shutdown
+2019-03-06 18:29:04 [RMI TCP Connection(88)-10.141.95.151] INFO  org.mongodb.driver.connection -
+				Closed connection [connectionId{localValue:2, serverValue:49}] to localhost:27017 because the pool has been closed.
