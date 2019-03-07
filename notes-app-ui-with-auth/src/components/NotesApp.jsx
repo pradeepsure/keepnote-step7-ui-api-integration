@@ -12,10 +12,10 @@ class NotesApp extends Component {
             return (
                 <Grid container spacing={8}>
                     <Grid item xs={12}>
-                        <NoteTaker handleAddNote={handleAddNote} />
+                        <NoteTaker handleAddNote={handleAddNote} reminders={reminders} />
                     </Grid>
                     <Grid item xs={12}>
-                        <NotesContainer notes={notes} handleRemoveNote={handleRemoveNote} />
+                        <NotesContainer notes={notes} handleRemoveNote={handleRemoveNote} reminders={reminders} />
                     </Grid>
                 </Grid>
             );

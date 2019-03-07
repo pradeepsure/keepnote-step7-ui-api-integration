@@ -11,6 +11,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import { firebase } from '../firebase/firebase';
 
 import { Link } from "react-router-dom";
+//import MenuDropDown from './MenuDropDown';
 
 const styles = theme => ({
   root: {
@@ -28,7 +29,7 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1
-  }, 
+  },
 });
 
 class Header extends Component {
@@ -41,6 +42,7 @@ class Header extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.handleNoteCurrentPage = this.handleNoteCurrentPage.bind(this);
     this.handleRemCurrentPage = this.handleRemCurrentPage.bind(this);
+    this.handleDeleteUser = this.handleDeleteUser.bind(this);
   }
 
   handleNoteCurrentPage() { this.props.handleCurrentPage('notes') }
@@ -77,6 +79,10 @@ class Header extends Component {
     return firebase.auth().signOut();
   }
 
+  handleDeleteUser() {
+
+  }
+
   render() {
     const { classes, currentPage } = this.props;
     // Object destructruing -- if assignee and variable name is same then we can do below
@@ -92,13 +98,13 @@ class Header extends Component {
               Keep - Notes
             </Typography>
             {isLoggedIn ? <SearchBar filterNotes={this.props.filterNotes} /> : ''}
-            <div className={classes.grow} />            
-            {isLoggedIn ? <div> <Button className={classes.button} onClick={this.handleNoteCurrentPage}>
-              {currentPage === 'notes' ? 'Notes' : 'View Notes'}
-            </Button>
-            <Button className={classes.button} onClick={this.handleRemCurrentPage}>
-            {currentPage === 'rem' ? 'Remainders' : 'View Remainders'}
-            </Button> </div> : ''}                       
+            <div className={classes.grow} />
+            {isLoggedIn ? <div>
+              <Button className={classes.button} onClick={this.handleDeleteUser}>Delete User</Button>
+              <Button className={classes.button} onClick={currentPage === 'notes' ? this.handleRemCurrentPage : this.handleNoteCurrentPage}>
+              {currentPage === 'notes' ? 'View Remainders' : 'View Notes'}
+              </Button>
+              </div> : ''}
             <Link to="/login" style={{ textDecoration: 'none', color: 'white' }}><Button className={classes.button} onClick={isLoggedIn ? this.handleLogout : this.handleLogin}>
               {isLoggedIn ? 'Logout' : 'Login'}
             </Button></Link>
