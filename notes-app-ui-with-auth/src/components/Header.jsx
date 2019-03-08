@@ -11,7 +11,6 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import { firebase } from '../firebase/firebase';
 
 import { Link } from "react-router-dom";
-//import MenuDropDown from './MenuDropDown';
 
 const styles = theme => ({
   root: {
@@ -72,15 +71,32 @@ class Header extends Component {
     // dummy method. Login now happens in AuthenticationForm or ThirdPartyLogin components
   }
 
+  // handleLogout(event) {
+  //   event.preventDefault();
+  //   const confLogout = window.confirm("Do you really want to Sign Out?");
+  //   if (confLogout === true) {
+  //     localStorage.removeItem('isLoggedIn', false);
+  //     localStorage.removeItem('loggedInUser');
+  //     this.setState({ isLoggedIn: false });
+  //     return firebase.auth().signOut();
+  //   } 
+  // }
+
+  //perform logout and redirect to login
   handleLogout() {
-    localStorage.removeItem('isLoggedIn', false);
-    localStorage.removeItem('loggedInUser');
-    this.setState({ isLoggedIn: false });
-    return firebase.auth().signOut();
+      localStorage.removeItem('isLoggedIn', false);
+      localStorage.removeItem('loggedInUser');
+      this.setState({ isLoggedIn: false });
+      return firebase.auth().signOut(); 
   }
 
+  // Since user is deleted, perform logout
   handleDeleteUser() {
-
+    const confDelete = window.confirm("Are you sure to delete this user? \nYou need to Sign Up again to login");
+    if (confDelete === true) {
+      this.props.handleDeleteUser();
+      this.handleLogout();
+    }
   }
 
   render() {

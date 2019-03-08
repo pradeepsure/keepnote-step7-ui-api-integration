@@ -35,7 +35,7 @@ class Note extends Component {
                 <CardContent>
                     {note.noteDescription}
                     <List component="nav">
-                        {reminders.map((item, i) => <ListItem button><ListItemText primary={item.reminderName} /></ListItem>)}
+                        {reminders.map((item, i) => <ListItem button key={item.reminderId}><ListItemText primary={item.reminderName} /></ListItem>)}
                     </List>
                 </CardContent>
                 <CardActions className={classes.deleteIcon}>

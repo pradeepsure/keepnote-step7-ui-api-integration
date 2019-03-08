@@ -18,8 +18,7 @@
     "react-color": "^2.17.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.5",
-    "reactstrap": "^7.1.0"
+    "react-scripts": "^2.1.8"
   },
   "scripts": {
     "cra-start": "react-scripts start",

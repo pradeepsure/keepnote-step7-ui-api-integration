@@ -24,6 +24,7 @@ export const history = createHistory();
 
 const NOTE_API_BASE_URL = 'http://localhost:8082/note-service/api/v1/note';
 const REMINDER_API_BASE_URL = 'http://localhost:8085/reminder-service/api/v1/reminder';
+const USER_API_BASE_URL = 'http://localhost:8080/user-service/api/v1/user';
 
 class AppRouter extends Component {
     // filteredNotes is used to show the matching notes during search
@@ -45,6 +46,8 @@ class AppRouter extends Component {
         this.handleCurrentPage = this.handleCurrentPage.bind(this);
         this.handleAddReminder = this.handleAddReminder.bind(this);
         this.handleRemoveReminder = this.handleRemoveReminder.bind(this);
+
+        this.handleDeleteUser = this.handleDeleteUser.bind(this);
     }
 
     handleLogin(){
@@ -223,6 +226,21 @@ class AppRouter extends Component {
     
     // Login for Reminder Service calls - END
 
+    // Delete Service calls - START
+    handleDeleteUser() {
+        let loggedInUser = localStorage.getItem('loggedInUser');
+        fetch(`${USER_API_BASE_URL}/${loggedInUser}`, {
+            method: 'DELETE',
+            headers: { "Content-Type": "application/json" }
+        }).then(user => {
+            // since user is deleted, nothing to do. Logout will be called from Header.
+            this.setState({ isLoggedIn: false });
+        }).catch(error => {
+            console.log("User Service - handleDeleteUser Exception");
+        });
+    }
+    // Delete Service calls - END
+
     render() {
         return (
             <Fragment>                
@@ -233,7 +251,8 @@ class AppRouter extends Component {
                         filterNotes={this.filterNotes}                        
                         isLoggedIn={this.state.isLoggedIn}
                         handleCurrentPage={this.handleCurrentPage} 
-                        currentPage={this.state.currentPage} />
+                        currentPage={this.state.currentPage}
+                        handleDeleteUser={this.handleDeleteUser} />
                 </MuiThemeProvider>                                          
                     <Switch>
                         <Route
