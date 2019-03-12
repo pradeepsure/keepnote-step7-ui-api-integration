@@ -9,8 +9,9 @@ import SearchBar from './SearchBar';
 import { Button } from '@material-ui/core';
 import DescriptionIcon from '@material-ui/icons/Description';
 import { firebase } from '../firebase/firebase';
-
 import { Link } from "react-router-dom";
+
+import SideMenu from './SideMenu';
 
 const styles = theme => ({
   root: {
@@ -126,6 +127,7 @@ class Header extends Component {
             </Button></Link>
           </Toolbar>
         </AppBar>
+        {isLoggedIn ? <SideMenu /> : ''}        
       </div>
     );
   }

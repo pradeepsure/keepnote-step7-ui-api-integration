@@ -19,6 +19,7 @@ class Note extends Component {
     render() {
         const { classes, handleRemoveNote, note } = this.props;
         const reminders = note.reminders == null ? [] : note.reminders;
+        const category = note.category == null ? [] : note.category.categoryName;
 
         return (
             <Card>
@@ -37,6 +38,7 @@ class Note extends Component {
                     <List component="nav">
                         {reminders.map((item, i) => <ListItem button key={item.reminderId}><ListItemText primary={item.reminderName} /></ListItem>)}
                     </List>
+                    {category}
                 </CardContent>
                 <CardActions className={classes.deleteIcon}>
                     <IconButton onClick={handleRemoveNote.bind(null, note.id)}>

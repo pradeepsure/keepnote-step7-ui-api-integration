@@ -37,20 +37,20 @@ public class CategoryServiceApplication {
 		return registrationBean;
 	}
 
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.stackroute.keepnote")).paths(PathSelectors.any()).build()
-				.pathMapping("/").apiInfo(apiInfo()).useDefaultResponseMessages(false);
-	}
-
-	@Bean
-	ApiInfo apiInfo() {
-		final ApiInfoBuilder builder = new ApiInfoBuilder();
-		builder.title("Spring Boot API for Category Service").version("1.0").license("(C) Sroute")
-				.description("List of all endpoints used in API");
-		return builder.build();
-	}
+//	@Bean
+//	public Docket api() {
+//		return new Docket(DocumentationType.SWAGGER_2).select()
+//				.apis(RequestHandlerSelectors.basePackage("com.stackroute.keepnote")).paths(PathSelectors.any()).build()
+//				.pathMapping("/").apiInfo(apiInfo()).useDefaultResponseMessages(false);
+//	}
+//
+//	@Bean
+//	ApiInfo apiInfo() {
+//		final ApiInfoBuilder builder = new ApiInfoBuilder();
+//		builder.title("Spring Boot API for Category Service").version("1.0").license("(C) Sroute")
+//				.description("List of all endpoints used in API");
+//		return builder.build();
+//	}
 
 	/*
 	 * 

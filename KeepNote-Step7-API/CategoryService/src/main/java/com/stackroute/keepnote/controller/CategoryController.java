@@ -1,10 +1,15 @@
 package com.stackroute.keepnote.controller;
 
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,9 +38,11 @@ import io.swagger.annotations.ApiOperation;
  * is equivalent to using @Controller and @ResposeBody annotation
  */
 @RestController
-@RequestMapping("/api/v1/category")
-@Api
+@RequestMapping("/category-service/api/v1/category")
+@Api(tags = "CategoryController")
+@CrossOrigin(origins = "*")
 public class CategoryController {
+	private Log log = LogFactory.getLog(getClass());
 
 	/*
 	 * Autowiring should be implemented for the CategoryService. (Use
@@ -68,17 +75,23 @@ public class CategoryController {
 	 */
 	@ApiOperation(value = "Create Category")
 	@PostMapping()
-	public ResponseEntity createCategory(@RequestBody Category category) {
-		ResponseEntity responseEntity = null;
+	public ResponseEntity<?> createCategory(@RequestBody Category category) {
+		log.info("createCategory : STARTED");
+		HttpHeaders headers = new HttpHeaders();
 		try {
-			Category category1 = categoryService.createCategory(category);
-			responseEntity = new ResponseEntity(category1, HttpStatus.CREATED);
-
+			category.setCategoryCreationDate(new Date());
+			if (categoryService.createCategory(category) != null) {
+				return new ResponseEntity<>(category, headers, HttpStatus.CREATED);
+			}
 		} catch (CategoryNotCreatedException e) {
-			responseEntity = new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
+			e.printStackTrace();
+			return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
 		}
-
-		return responseEntity;
+		log.info("createCategory : ENDED");
+		return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
 	}
 
 	/*
@@ -95,15 +108,19 @@ public class CategoryController {
 	 */
 	@ApiOperation(value = "Delete Category")
 	@DeleteMapping("/{categoryId}")
-	public ResponseEntity deleteCategory(@PathVariable() String categoryId) {
-		ResponseEntity responseEntity = null;
+	public ResponseEntity<?> deleteCategory(@PathVariable() String categoryId) {
+		log.info("deleteCategory : STARTED");
+		HttpHeaders headers = new HttpHeaders();
 		try {
-			categoryService.deleteCategory(categoryId);
-			responseEntity = new ResponseEntity("Category Deleted Successfully", HttpStatus.OK);
+			if (categoryService.deleteCategory(categoryId)) {
+				return new ResponseEntity<>(headers, HttpStatus.OK);
+			}
 		} catch (CategoryDoesNoteExistsException e) {
-			responseEntity = new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+			e.printStackTrace();
+			return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 		}
-		return responseEntity;
+		log.info("deleteCategory : ENDED");
+		return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 	}
 
 	/*
@@ -117,16 +134,23 @@ public class CategoryController {
 	 */
 	@ApiOperation(value = "Update Category")
 	@PutMapping("/{categoryId}")
-	public ResponseEntity updateCategory(@PathVariable String categoryId, @RequestBody Category category) {
-		ResponseEntity responseEntity = null;
-		Category updateCategory = categoryService.updateCategory(category, categoryId);
-		if (updateCategory != null) {
-			responseEntity = new ResponseEntity(updateCategory, HttpStatus.OK);
+	public ResponseEntity<?> updateCategory(@PathVariable String categoryId, @RequestBody Category category) {
+		log.info("updateCategory : STARTED");
+		HttpHeaders headers = new HttpHeaders();
 
-		} else {
-			responseEntity = new ResponseEntity("Unable to update Category", HttpStatus.CONFLICT);
+		try {
+			Category updatedCategory = categoryService.updateCategory(category, categoryId);
+			if (updatedCategory != null) {
+				return new ResponseEntity<>(updatedCategory, headers, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return responseEntity;
+
+		log.info("updateCategory : ENDED");
+		return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
 	}
 
 	/*
@@ -141,32 +165,43 @@ public class CategoryController {
 	 */
 	@ApiOperation(value = "Get Category by ID")
 	@GetMapping("/{categoryId}")
-	public ResponseEntity getCategoryById(@PathVariable String categoryId) {
-		ResponseEntity responseEntity = null;
+	public ResponseEntity<?> getCategoryById(@PathVariable String categoryId) {
+		log.info("getCategoryById : STARTED");
+		HttpHeaders headers = new HttpHeaders();
+
 		try {
 
 			Category fetchedCategory = categoryService.getCategoryById(categoryId);
-			responseEntity = new ResponseEntity(fetchedCategory, HttpStatus.OK);
+			if (fetchedCategory != null) {
+				return new ResponseEntity<>(fetchedCategory, headers, HttpStatus.OK);
+			}
 
 		} catch (CategoryNotFoundException e) {
-			responseEntity = new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 		}
 
-		return responseEntity;
+		log.info("getCategoryById : ENDED");
+		return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
 	}
 
 	@ApiOperation(value = "Get All Category by User")
-	@GetMapping("/user/{userId}")
-	public ResponseEntity getAllCategoryByUserId(@PathVariable String userId) {
-		ResponseEntity responseEntity = null;
-		List<Category> allCategory = categoryService.getAllCategoryByUserId(userId);
-		if (allCategory != null) {
-			responseEntity = new ResponseEntity(allCategory, HttpStatus.OK);
-		} else {
-			responseEntity = new ResponseEntity("Error in loading all Category", HttpStatus.CONFLICT);
+	@GetMapping("/{userId}")
+	public ResponseEntity<?> getAllCategoryByUserId(@PathVariable String userId) {
+		log.info("getAllCategoryByUserId : STARTED");
+		HttpHeaders headers = new HttpHeaders();
+
+		try {
+			List<Category> allCategory = categoryService.getAllCategoryByUserId(userId);
+			if (allCategory != null) {
+				return new ResponseEntity<List<Category>>(allCategory, headers, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>("Error in loading all Category", HttpStatus.CONFLICT);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
-		return responseEntity;
+		log.info("getAllCategoryByUserId : ENDED");
+		return new ResponseEntity<>(headers, HttpStatus.OK);
 	}
-
 }

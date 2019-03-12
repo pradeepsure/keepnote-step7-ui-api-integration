@@ -22,9 +22,10 @@ const theme = createMuiTheme({
 
 export const history = createHistory();
 
+const USER_API_BASE_URL = 'http://localhost:8080/user-service/api/v1/user';
 const NOTE_API_BASE_URL = 'http://localhost:8082/note-service/api/v1/note';
 const REMINDER_API_BASE_URL = 'http://localhost:8085/reminder-service/api/v1/reminder';
-const USER_API_BASE_URL = 'http://localhost:8080/user-service/api/v1/user';
+const CATEGORY_API_BASE_URL = 'http://localhost:8083/category-service/api/v1/category';
 
 class AppRouter extends Component {
     // filteredNotes is used to show the matching notes during search
@@ -33,11 +34,12 @@ class AppRouter extends Component {
         this.state = {
             notes: [],
             filteredNotes: [],
-            isLoggedIn :false,
-            reminders : [],
+            isLoggedIn: false,
+            reminders: [],
+            categories: [],
             currentPage: 'notes',
         };
-        this.handleLoadData = this.handleLoadData.bind(this);        
+        this.handleLoadData = this.handleLoadData.bind(this);
         this.handleAddNote = this.handleAddNote.bind(this);
         this.handleRemoveNote = this.handleRemoveNote.bind(this);
         this.handleUpdateNote = this.handleUpdateNote.bind(this);
@@ -50,7 +52,7 @@ class AppRouter extends Component {
         this.handleDeleteUser = this.handleDeleteUser.bind(this);
     }
 
-    handleLogin(){
+    handleLogin() {
         this.setState(currState => ({
             isLoggedIn: true,
             currentPage: 'notes'
@@ -61,14 +63,15 @@ class AppRouter extends Component {
     // react life cycle method called once when the page is getting loaded
     componentDidMount() {
         // Get all the notes      
-        if(localStorage.getItem('isLoggedIn')) {
-            this.handleLoadData(); 
-        }       
+        if (localStorage.getItem('isLoggedIn')) {
+            this.handleLoadData();
+        }
     }
 
     handleLoadData() {
         this.getAllNotes();
         this.getAllReminders();
+        //this.getAllCategories();
     }
 
     getAllNotes() {
@@ -95,7 +98,7 @@ class AppRouter extends Component {
             })).catch(error => {
                 console.log("Note Service - getAllNotes Exception");
             })
-    }   
+    }
 
     handleAddNote(note) {
         fetch(`${NOTE_API_BASE_URL}`, {
@@ -164,8 +167,8 @@ class AppRouter extends Component {
         }
     }
 
-    // Login for Reminder Service calls - START
-    handleCurrentPage(currentPage){
+    // Reminder Service calls - START
+    handleCurrentPage(currentPage) {
         this.setState((currState) => ({
             currentPage: currentPage,
         }));
@@ -194,7 +197,7 @@ class AppRouter extends Component {
             })).catch(error => {
                 console.log("Reminder Service - getAllReminders Exception");
             })
-    } 
+    }
 
     handleAddReminder(reminder) {
         fetch(`${REMINDER_API_BASE_URL}`, {
@@ -202,10 +205,10 @@ class AppRouter extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(reminder)
         }).then(response => response.json())
-          .then(reminder => {
-            this.setState((currState) => ({
-                reminders: currState.reminders.concat([reminder]),
-            }));                
+            .then(reminder => {
+                this.setState((currState) => ({
+                    reminders: currState.reminders.concat([reminder]),
+                }));
             });
     }
 
@@ -215,7 +218,7 @@ class AppRouter extends Component {
             method: 'DELETE',
             headers: { "Content-Type": "application/json" }
         })
-          //  .then(response => response.json())
+            //  .then(response => response.json())
             .then(response => {
                 const reminderIndexToRemove = this.state.reminders.findIndex(reminder => reminder.reminderId === reminderId);
                 this.setState((currState) => ({
@@ -223,8 +226,8 @@ class AppRouter extends Component {
                 }));
             });
     }
-    
-    // Login for Reminder Service calls - END
+
+    // Reminder Service calls - END
 
     // Delete Service calls - START
     handleDeleteUser() {
@@ -241,54 +244,82 @@ class AppRouter extends Component {
     }
     // Delete Service calls - END
 
+    // Category Service calls - START
+    getAllCategories() {
+        // Get all the Categorys
+        let loggedInUser = localStorage.getItem('loggedInUser');
+        fetch(`${CATEGORY_API_BASE_URL}/${loggedInUser}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                else if (response.status === 404) {
+                    return Promise.reject(new Error('Invalid URL'))
+                }
+                else if (response.status === 401) {
+                    return Promise.reject(new Error('UnAuthorized User...'));
+                }
+                else {
+                    return Promise.reject(new Error('Some internal error occured...'));
+                }
+            })
+            .then(categories => this.setState({
+                categories: categories,
+            })).catch(error => {
+                console.log("Category Service - getAllCategories Exception");                
+            })
+    }
+    // Category Service calls - END
+
     render() {
         return (
-            <Fragment>                
-                <Router history={history}> 
-                <div>
-                <MuiThemeProvider theme={theme}>
-                    <Header 
-                        filterNotes={this.filterNotes}                        
-                        isLoggedIn={this.state.isLoggedIn}
-                        handleCurrentPage={this.handleCurrentPage} 
-                        currentPage={this.state.currentPage}
-                        handleDeleteUser={this.handleDeleteUser} />
-                </MuiThemeProvider>                                          
-                    <Switch>
-                        <Route
-                            path="/"
-                            exact
-                            render={() => <MuiThemeProvider theme={theme}>
-                                <WelcomePage />
-                            </MuiThemeProvider>}
-                        />
-                         <Route
-                            path="/login"
-                            exact
-                            render={() => <MuiThemeProvider theme={theme}>
-                                <AuthenticationForm  handleLogin={this.handleLogin}/>
-                            </MuiThemeProvider>}
-                        />
-                        <ProtectedRoute
-                            path="/home"
-                            exact
-                            component={NotesApp}
-                            notes={this.state.filteredNotes}
-                            handleAddNote={this.handleAddNote}
-                            handleRemoveNote={this.handleRemoveNote}
-                            currentPage={this.state.currentPage}
-                            reminders={this.state.reminders}
-                            handleAddReminder = {this.handleAddReminder}
-                            handleRemoveReminder = {this.handleRemoveReminder}                            
-                        />
-                        <ProtectedRoute
-                            path="/edit-note/:id"
-                            component={EditNote}
-                            notes={this.state.filteredNotes}
-                            handleUpdateNote={this.handleUpdateNote}
-                        />
-                    </Switch>
-                    </div>  
+            <Fragment>
+                <Router history={history}>
+                    <div>
+                        <MuiThemeProvider theme={theme}>
+                            <Header
+                                filterNotes={this.filterNotes}
+                                isLoggedIn={this.state.isLoggedIn}
+                                handleCurrentPage={this.handleCurrentPage}
+                                currentPage={this.state.currentPage}
+                                handleDeleteUser={this.handleDeleteUser} />                            
+                        </MuiThemeProvider>
+                        <Switch>
+                            <Route
+                                path="/"
+                                exact
+                                render={() => <MuiThemeProvider theme={theme}>
+                                    <WelcomePage />
+                                </MuiThemeProvider>}
+                            />
+                            <Route
+                                path="/login"
+                                exact
+                                render={() => <MuiThemeProvider theme={theme}>
+                                    <AuthenticationForm handleLogin={this.handleLogin} />
+                                </MuiThemeProvider>}
+                            />
+                            <ProtectedRoute
+                                path="/home"
+                                exact
+                                component={NotesApp}
+                                notes={this.state.filteredNotes}
+                                handleAddNote={this.handleAddNote}
+                                handleRemoveNote={this.handleRemoveNote}
+                                currentPage={this.state.currentPage}
+                                reminders={this.state.reminders}
+                                categories={this.state.categories}
+                                handleAddReminder={this.handleAddReminder}
+                                handleRemoveReminder={this.handleRemoveReminder}
+                            />
+                            <ProtectedRoute
+                                path="/edit-note/:id"
+                                component={EditNote}
+                                notes={this.state.filteredNotes}
+                                handleUpdateNote={this.handleUpdateNote}
+                            />
+                        </Switch>
+                    </div>
                 </Router>
             </Fragment>
         );
