@@ -12,10 +12,11 @@ const styles = theme => ({
         '&:hover': {
           backgroundColor: fade(theme.palette.common.white, 0.25),
         },
+        marginRight: theme.spacing.unit * 2,
         marginLeft: 0,
         width: '100%',
         [theme.breakpoints.up('sm')]: {
-          marginLeft: theme.spacing.unit * 20,
+          marginLeft: theme.spacing.unit * 3,
           width: '50%',
         },
       },
@@ -46,11 +47,23 @@ const styles = theme => ({
           },
         },
       },
+      sectionDesktop: {
+        display: 'none',
+        [theme.breakpoints.up('md')]: {
+          display: 'flex',
+        },
+      },
+      sectionMobile: {
+        display: 'flex',
+        [theme.breakpoints.up('md')]: {
+          display: 'none',
+        },
+      },
 });
 
 class SearchBar extends Component {
     render() {
-        const { classes, filterNotes } = this.props;
+        const { classes, filterData } = this.props;
         return (
             <div className={classes.search}>
                 <div className={classes.searchIcon}>
@@ -62,7 +75,7 @@ class SearchBar extends Component {
                         root: classes.inputRoot,
                         input: classes.inputInput,
                     }}
-                    match={this.props.match} onChange={filterNotes}
+                    match={this.props.match} onChange={filterData}
                 />
             </div>
         );

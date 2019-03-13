@@ -25,4 +25,5 @@ public interface CategoryRepository extends MongoRepository<Category, String> {
 	 *
 	 */
 	List<Category> findAllCategoryByCategoryCreatedBy(String createdBy);
+	List<Category> findByCategoryCreatedBy(String createdBy);
 }

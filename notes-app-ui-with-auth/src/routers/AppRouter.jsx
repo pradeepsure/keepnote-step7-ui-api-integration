@@ -32,22 +32,28 @@ class AppRouter extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            notes: [],
-            filteredNotes: [],
             isLoggedIn: false,
-            reminders: [],
-            categories: [],
             currentPage: 'notes',
+            notes: [],
+            filteredNotes: [],            
+            reminders: [],
+            filteredReminders: [],
+            categories: [],
+            filteredCategories: [],            
         };
+        this.handleLogin = this.handleLogin.bind(this);
+        this.handleCurrentPage = this.handleCurrentPage.bind(this);
         this.handleLoadData = this.handleLoadData.bind(this);
+
         this.handleAddNote = this.handleAddNote.bind(this);
         this.handleRemoveNote = this.handleRemoveNote.bind(this);
         this.handleUpdateNote = this.handleUpdateNote.bind(this);
-        this.handleLogin = this.handleLogin.bind(this);
-
-        this.handleCurrentPage = this.handleCurrentPage.bind(this);
+        
         this.handleAddReminder = this.handleAddReminder.bind(this);
         this.handleRemoveReminder = this.handleRemoveReminder.bind(this);
+
+        this.handleAddCategory = this.handleAddCategory.bind(this);
+        this.handleRemoveCategory = this.handleRemoveCategory.bind(this);
 
         this.handleDeleteUser = this.handleDeleteUser.bind(this);
     }
@@ -71,7 +77,7 @@ class AppRouter extends Component {
     handleLoadData() {
         this.getAllNotes();
         this.getAllReminders();
-        //this.getAllCategories();
+        this.getAllCategories();
     }
 
     getAllNotes() {
@@ -152,17 +158,34 @@ class AppRouter extends Component {
     }
 
     // Filter based on Search string
-    filterNotes = (searchFilter) => {
+    filterData = (searchFilter) => {
         const searchString = searchFilter.target.value
+        const searchPage =  this.state.currentPage;
         if (searchString) {
-            let filteredNotes = this.state.notes.filter(filterNote => filterNote.noteTitle.toLowerCase().indexOf(searchString.toLowerCase()) > -1)
-            // set the filetered notes matching given string to the state to show in Notes Container
-            this.setState({
-                filteredNotes
-            })
+            if (searchPage === 'notes') {
+                let filteredNotes = this.state.notes.filter(filterNote => filterNote.noteTitle.toLowerCase().indexOf(searchString.toLowerCase()) > -1)
+                // set the filetered notes matching given string to the state to show in Notes Container
+                this.setState({
+                    filteredNotes
+                })
+            } else if (searchPage === 'cat') {
+                let filteredCategories = this.state.categories.filter(filterCategory => filterCategory.categoryName.toLowerCase().indexOf(searchString.toLowerCase()) > -1)
+                // set the filetered categories matching given string to the state to show in Categories Container
+                this.setState({
+                    filteredCategories
+                })
+            } else if (searchPage === 'rem') {
+                let filteredReminders = this.state.reminders.filter(filterReminder => filterReminder.reminderName.toLowerCase().indexOf(searchString.toLowerCase()) > -1)
+                // set the filetered notes matching given string to the state to show in Notes Container
+                this.setState({
+                    filteredReminders
+                })
+            }         
         } else {
             this.setState(currState => ({
-                filteredNotes: currState.notes
+                filteredNotes: currState.notes,
+                filteredCategories: currState.categories,
+                filteredReminders: currState.reminders,
             }));
         }
     }
@@ -194,6 +217,7 @@ class AppRouter extends Component {
             })
             .then(reminders => this.setState({
                 reminders: reminders,
+                filteredReminders: reminders
             })).catch(error => {
                 console.log("Reminder Service - getAllReminders Exception");
             })
@@ -208,6 +232,7 @@ class AppRouter extends Component {
             .then(reminder => {
                 this.setState((currState) => ({
                     reminders: currState.reminders.concat([reminder]),
+                    filteredReminders: currState.reminders.concat([reminder]),
                 }));
             });
     }
@@ -222,11 +247,11 @@ class AppRouter extends Component {
             .then(response => {
                 const reminderIndexToRemove = this.state.reminders.findIndex(reminder => reminder.reminderId === reminderId);
                 this.setState((currState) => ({
-                    reminders: [...currState.reminders.slice(0, reminderIndexToRemove), ...currState.reminders.slice(reminderIndexToRemove + 1)]
+                    reminders: [...currState.reminders.slice(0, reminderIndexToRemove), ...currState.reminders.slice(reminderIndexToRemove + 1)],
+                    filteredReminders: [...currState.reminders.slice(0, reminderIndexToRemove), ...currState.reminders.slice(reminderIndexToRemove + 1)]
                 }));
             });
     }
-
     // Reminder Service calls - END
 
     // Delete Service calls - START
@@ -265,9 +290,39 @@ class AppRouter extends Component {
             })
             .then(categories => this.setState({
                 categories: categories,
+                filteredCategories: categories, 
             })).catch(error => {
                 console.log("Category Service - getAllCategories Exception");                
             })
+    }
+
+    handleAddCategory(category) {
+        fetch(`${CATEGORY_API_BASE_URL}`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(category)
+        }).then(response => response.json())
+            .then(category => {
+                this.setState((currState) => ({
+                    categories: currState.categories.concat([category]),
+                    filteredCategories: currState.categories.concat([category]) 
+                }));
+            });
+    }
+
+    handleRemoveCategory(categoryId) {
+        fetch(`${CATEGORY_API_BASE_URL}/${categoryId}`, {
+            method: 'DELETE',
+            headers: { "Content-Type": "application/json" }
+        })
+            //  .then(response => response.json())
+            .then(response => {
+                const categoryIndexToRemove = this.state.categories.findIndex(category => category.id === categoryId);
+                this.setState((currState) => ({
+                    categories: [...currState.categories.slice(0, categoryIndexToRemove), ...currState.categories.slice(categoryIndexToRemove + 1)],
+                    filteredCategories: [...currState.categories.slice(0, categoryIndexToRemove), ...currState.categories.slice(categoryIndexToRemove + 1)], 
+                }));
+            });
     }
     // Category Service calls - END
 
@@ -278,10 +333,9 @@ class AppRouter extends Component {
                     <div>
                         <MuiThemeProvider theme={theme}>
                             <Header
-                                filterNotes={this.filterNotes}
+                                filterData={this.filterData}
                                 isLoggedIn={this.state.isLoggedIn}
-                                handleCurrentPage={this.handleCurrentPage}
-                                currentPage={this.state.currentPage}
+                                handleCurrentPage={this.handleCurrentPage}                                
                                 handleDeleteUser={this.handleDeleteUser} />                            
                         </MuiThemeProvider>
                         <Switch>
@@ -307,10 +361,12 @@ class AppRouter extends Component {
                                 handleAddNote={this.handleAddNote}
                                 handleRemoveNote={this.handleRemoveNote}
                                 currentPage={this.state.currentPage}
-                                reminders={this.state.reminders}
-                                categories={this.state.categories}
+                                reminders={this.state.filteredReminders}                                
                                 handleAddReminder={this.handleAddReminder}
                                 handleRemoveReminder={this.handleRemoveReminder}
+                                categories={this.state.filteredCategories}
+                                handleAddCategory={this.handleAddCategory}
+                                handleRemoveCategory={this.handleRemoveCategory}
                             />
                             <ProtectedRoute
                                 path="/edit-note/:id"

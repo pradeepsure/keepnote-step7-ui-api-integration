@@ -109,7 +109,7 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	@Override
 	public List<Category> getAllCategoryByUserId(String userId) {
-		return categoryRepository.findAllCategoryByCategoryCreatedBy(userId);
+		return categoryRepository.findByCategoryCreatedBy(userId);
 	}
 
 }

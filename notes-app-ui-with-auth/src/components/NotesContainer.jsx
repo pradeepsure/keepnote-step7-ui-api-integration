@@ -5,7 +5,7 @@ import Note from './Note';
 const NotesContainer = (props) => (
     <Grid container spacing={8}>
         {
-            ((props.notes.length > 0) ?
+            ((props.notes.length > 0) ? 
                 (props.notes.map(note => {
                     return (
                         <Grid key={note.id} item xs={12} sm={4} xl={3}>

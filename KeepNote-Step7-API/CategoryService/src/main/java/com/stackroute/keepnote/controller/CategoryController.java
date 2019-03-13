@@ -162,27 +162,27 @@ public class CategoryController {
 	 * 
 	 * This handler method should map to the URL "/api/v1/category" using HTTP
 	 * GET method
-	 */
-	@ApiOperation(value = "Get Category by ID")
-	@GetMapping("/{categoryId}")
-	public ResponseEntity<?> getCategoryById(@PathVariable String categoryId) {
-		log.info("getCategoryById : STARTED");
-		HttpHeaders headers = new HttpHeaders();
-
-		try {
-
-			Category fetchedCategory = categoryService.getCategoryById(categoryId);
-			if (fetchedCategory != null) {
-				return new ResponseEntity<>(fetchedCategory, headers, HttpStatus.OK);
-			}
-
-		} catch (CategoryNotFoundException e) {
-			return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
-		}
-
-		log.info("getCategoryById : ENDED");
-		return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
-	}
+//	 */
+//	@ApiOperation(value = "Get Category by ID")
+//	@GetMapping("/{categoryId}")
+//	public ResponseEntity<?> getCategoryById(@PathVariable String categoryId) {
+//		log.info("getCategoryById : STARTED");
+//		HttpHeaders headers = new HttpHeaders();
+//
+//		try {
+//
+//			Category fetchedCategory = categoryService.getCategoryById(categoryId);
+//			if (fetchedCategory != null) {
+//				return new ResponseEntity<>(fetchedCategory, headers, HttpStatus.OK);
+//			}
+//
+//		} catch (CategoryNotFoundException e) {
+//			return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
+//		}
+//
+//		log.info("getCategoryById : ENDED");
+//		return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
+//	}
 
 	@ApiOperation(value = "Get All Category by User")
 	@GetMapping("/{userId}")
@@ -195,7 +195,7 @@ public class CategoryController {
 			if (allCategory != null) {
 				return new ResponseEntity<List<Category>>(allCategory, headers, HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>("Error in loading all Category", HttpStatus.CONFLICT);
+				return new ResponseEntity<>("Error in loading all Category", headers, HttpStatus.CONFLICT);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

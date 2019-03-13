@@ -28,6 +28,14 @@ public class Category {
 	private String categoryDescription;
 	private String categoryCreatedBy;
 	private Date categoryCreationDate;
+	private Color color;
+	
+	public Color getColor() {
+		return color;
+	}
+	public void setColor(Color color) {
+		this.color = color;
+	}
 
 	public String getId() {
 		return id;

@@ -14,7 +14,7 @@ const RemindersContainer = (props) => (
             })) : (<div align='center'>
                 <h2 style={{ color: 'green' }}>
                     No Reminders to display!!!. Please add
-                            </h2>
+                </h2>
             </div>))
         }
     </Grid>
