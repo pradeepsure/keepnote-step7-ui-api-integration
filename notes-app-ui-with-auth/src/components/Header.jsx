@@ -243,7 +243,10 @@ class Header extends Component {
                 {currentPage === 'notes' ? 'View Remainders' : 'View Notes'}
               </Button>
             </div> : ''} */}
-            <Link className={classes.link} to="/login" ><Button  onClick={isLoggedIn ? this.handleLogout : this.handleLogin}>
+            {isLoggedIn ? <Typography className={classes.title} variant="body1" color="textSecondary" noWrap>
+              Welcome - {localStorage.getItem('loggedInUser')}
+            </Typography> : ''}
+            <Link className={classes.link} to="/login" > <Button  onClick={isLoggedIn ? this.handleLogout : this.handleLogin}>
               {isLoggedIn ? 'Logout' : 'Login'}
             </Button></Link>
           </Toolbar>
