@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { history } from '../routers/AppRouter';
+import { history } from '../../routers/AppRouter';
 import { Grid } from '@material-ui/core';
-//import { checkSignUpErrorType } from '../utils/check-signup-error-type';
+//import { checkSignInErrorType } from '../utils/check-signin-error-type';
 
 const styles = theme => ({
     root: {
@@ -21,7 +21,7 @@ const styles = theme => ({
     marginTop: {
         marginTop: theme.spacing.unit * 8,
     },
-    signUpButton: {
+    signInButton: {
         marginTop: theme.spacing.unit * 2,
         alignSelf: 'flex-end',
     }
@@ -29,7 +29,7 @@ const styles = theme => ({
 
 const USER_API_BASE_URL = 'http://localhost:8080/user-service/api/v1/user';
 
-class SignUpForm extends React.Component {
+class SignInForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -38,8 +38,7 @@ class SignUpForm extends React.Component {
             errorMessageInUsername: '',
             errorMessageInPassword: '',
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSignUp = this.handleSignUp.bind(this);
+        this.handleSignIn = this.handleSignIn.bind(this);
     }
     handleChange(name) {
         return (event => {
@@ -50,7 +49,7 @@ class SignUpForm extends React.Component {
             });
         });
     }
-    handleSignUp(event) {
+    handleSignIn(event) {
         event.preventDefault();
 
         const newUser = {
@@ -59,21 +58,33 @@ class SignUpForm extends React.Component {
             userPassword: this.state.password
         }
 
-        fetch(`${USER_API_BASE_URL}`, {
+        fetch(`${USER_API_BASE_URL}/login`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newUser)
-        }).then(response => response.json())
-            .then(user => {
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            else if (response.status === 404) {
+                return Promise.reject(new Error('Credentials Not Matched'))
+            }
+            else if (response.status === 401) {
+                return Promise.reject(new Error('UnAuthorized User...'));
+            }
+            else {
+                return Promise.reject(new Error('Some internal error occured...'));
+            }
+        }).then(user => {
                 localStorage.setItem('isLoggedIn', true);
                 localStorage.setItem('loggedInUser', this.state.email);
                 this.props.handleLogin();
                 history.push('/home');
             }).catch((error) => {
                 //const errorCode = error.code;
-                //const errorType = checkSignUpErrorType(errorCode);
-                const errorType = 'email';
                 const errorMessage = error.message;
+                //const errorType = checkSignInErrorType(errorCode);
+                const errorType = 'email';
                 if (errorType === 'email') {
                     this.setState({
                         errorMessageInUsername: errorMessage,
@@ -88,8 +99,7 @@ class SignUpForm extends React.Component {
                         errorMessageInPassword: errorMessage,
                     })
                 }
-                console.log("User Service - handleSignUp Exception");
-            });           
+            })
     }
     render() {
         const { classes } = this.props;
@@ -97,7 +107,7 @@ class SignUpForm extends React.Component {
             <>
                 <Grid container spacing={0}>
                     <Grid item xs={12}>
-                        <form className={classes.root} onSubmit={this.handleSignUp}>
+                        <form className={classes.root} onSubmit={this.handleSignIn}>
                             <TextField
                                 className={classes.textField}
                                 required
@@ -123,8 +133,8 @@ class SignUpForm extends React.Component {
                                 onChange={this.handleChange('password')}
                                 margin="normal"
                             />
-                            <Button type="submit" color="primary" variant="outlined" className={classes.signUpButton}>
-                                SignUp
+                            <Button type="submit" color="primary" variant="outlined" className={classes.signInButton}>
+                                SignIn
                             </Button>
                         </form>
                         <div className={classes.marginTop}></div>
@@ -135,8 +145,8 @@ class SignUpForm extends React.Component {
     }
 }
 
-SignUpForm.propTypes = {
-    classes: PropTypes.object.isRequired,    
+SignInForm.propTypes = {
+    classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignUpForm);
+export default withStyles(styles)(SignInForm);

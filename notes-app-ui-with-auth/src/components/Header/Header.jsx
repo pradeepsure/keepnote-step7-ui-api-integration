@@ -10,7 +10,7 @@ import { Button } from '@material-ui/core';
 import DescriptionIcon from '@material-ui/icons/Description';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { firebase } from '../firebase/firebase';
+import { firebase } from '../../firebase/firebase';
 import { Link } from "react-router-dom";
 
 import Drawer from '@material-ui/core/Drawer';

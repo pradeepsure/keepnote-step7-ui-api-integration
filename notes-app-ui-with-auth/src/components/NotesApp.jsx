@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import NoteTaker from './NoteTaker';
-import NotesContainer from './NotesContainer';
-import ReminderTaker from './ReminderTaker';
-import RemindersContainer from './RemindersContainer';
-import CategoryTaker from './CategoryTaker';
-import CategoriesContainer from './CategoriesContainer';
+import NoteTaker from './Note/NoteTaker';
+import NotesContainer from './Note/NotesContainer';
+import ReminderTaker from './Reminder/ReminderTaker';
+import RemindersContainer from './Reminder/RemindersContainer';
+import CategoryTaker from './Category/CategoryTaker';
+import CategoriesContainer from './Category/CategoriesContainer';
 
 class NotesApp extends Component {
     render() {

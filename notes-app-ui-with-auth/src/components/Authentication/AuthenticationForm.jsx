@@ -7,7 +7,7 @@ import SignUpForm from './SignUpForm';
 import SignInForm from './SignInForm';
 import { MuiThemeProvider } from '@material-ui/core';
 import ThirdPartyLogin from './ThirdPartyLogin';
-import theme from '../theme/theme';
+import theme from '../../theme/theme';
 
 const styles = theme => ({
     root: {

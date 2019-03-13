@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IconButton, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import googleLogo from '../images/google-logo.png';
-import { firebase, googleAuthProvider } from '../firebase/firebase';
-import { history } from '../routers/AppRouter';
+import googleLogo from '../../images/google-logo.png';
+import { firebase, googleAuthProvider } from '../../firebase/firebase';
+import { history } from '../../routers/AppRouter';
 
 const styles = theme => ({
     root: {

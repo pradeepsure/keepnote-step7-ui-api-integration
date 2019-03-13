@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
-import NotesApp from '../components/NotesApp';
-import EditNote from '../components/EditNote';
-import createHistory from 'history/createBrowserHistory';
+import Header from '../components/Header/Header';
 import WelcomePage from '../components/WelcomePage';
+import NotesApp from '../components/NotesApp';
+import EditNote from '../components/Note/EditNote';
+import createHistory from 'history/createBrowserHistory';
 import { green, pink } from '@material-ui/core/colors';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import Header from '../components/Header';
-import AuthenticationForm from '../components/AuthenticationForm';
+
+import AuthenticationForm from '../components/Authentication/AuthenticationForm';
 import ProtectedRoute from './ProtectedRoute';
 
 const theme = createMuiTheme({
